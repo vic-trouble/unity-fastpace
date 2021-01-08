@@ -1,0 +1,8 @@
+- screen feedback when shooting/exploding
+- rounds paticles
+- blood particles
+- debris
+- destructible env
+- houses
+- targets
+- bullet traces

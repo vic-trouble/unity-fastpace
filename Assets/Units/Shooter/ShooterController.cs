@@ -16,6 +16,10 @@ public class ShooterController : MonoBehaviour
     //private bool isRight = true;
 
     private string currentAnimation;
+    private int animationCount = 0;
+
+    private float nextShotTime = 0;
+    public float SHOT_SPEED = 0.25f;
 
     // Start is called before the first frame update
     void Start()
@@ -55,23 +59,20 @@ public class ShooterController : MonoBehaviour
 
         animator.Play(animation);
         currentAnimation = animation;
+
+        Debug.Log("Anim " + animationCount + " " + currentAnimation);
+        animationCount++;
     }
 
     // Update is called once per tick
     void FixedUpdate()
     {
-        //if (Input.GetButton("Fire1")) {
-        //    animator.Play("Shoot");
-        //    return;
-        //}
-
         // rotate to direction
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 aimPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         float direction = -Vector2.SignedAngle(aimPosition - (Vector2)transform.position, Vector2.right);
         if (direction < 0)
             direction += 360;
-        Debug.Log("angle=" + direction);
 
         string animation = "Idle";
 
@@ -83,25 +84,19 @@ public class ShooterController : MonoBehaviour
         if (Mathf.Abs(moveX) > 0 || Mathf.Abs(moveY) > 0)
             animation = "Walk";
 
+        // shooting
+        if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
+            animation = "Shoot";
+            nextShotTime = Time.fixedTime + SHOT_SPEED;
+        }
+        else if (Time.fixedTime < nextShotTime) {
+            animation = "Shoot";
+        }
+
         // flip if necessary
         transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
 
         // animate
         PlayAnimatinon(GetAnimPrefix(direction) + animation);
-
-
-        //if (Mathf.Abs(moveX) > 0.01)
-        //    animator.Play("Walk");
-        //else
-        //    animator.Play("Idle");
-
-        //  flip it
-        //if (isRight && moveX < 0) {
-        //    isRight = false;
-        //    transform.localScale = new Vector3(-1, 1, 1);
-        //} else if (!isRight && moveX > 0) {
-        //    isRight = true;
-        //    transform.localScale = new Vector3(1, 1, 1);
-        //}
     }
 }

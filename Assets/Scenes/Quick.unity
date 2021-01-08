@@ -2556,3 +2556,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 4
   aimCursor: {fileID: 2800000, guid: 7e856ea8ccc7cd0df9432ac123d01de4, type: 3}
+  SHOT_SPEED: 0.4
