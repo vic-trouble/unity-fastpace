@@ -7,14 +7,19 @@ public class ShooterController : MonoBehaviour
     // primary animation
     private Animator animator;
 
-    private float SPEED = 0.25f;
+    // movement speed
+    public float SPEED = 0.25f;
 
-    private bool isRight = true;
+    // aim cursor
+    public Texture2D aimCursor;
+
+    //private bool isRight = true;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
     }
 
     // Update is called once per tick
@@ -62,12 +67,12 @@ public class ShooterController : MonoBehaviour
         //    animator.Play("Idle");
 
         //  flip it
-        if (isRight && moveX < 0) {
-            isRight = false;
-            transform.localScale = new Vector3(-1, 1, 1);
-        } else if (!isRight && moveX > 0) {
-            isRight = true;
-            transform.localScale = new Vector3(1, 1, 1);
-        }
+        //if (isRight && moveX < 0) {
+        //    isRight = false;
+        //    transform.localScale = new Vector3(-1, 1, 1);
+        //} else if (!isRight && moveX > 0) {
+        //    isRight = true;
+        //    transform.localScale = new Vector3(1, 1, 1);
+        //}
     }
 }
