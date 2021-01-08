@@ -2554,5 +2554,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b976fa9c6662fc7d99a4fa677bf935cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SPEED: 0.25
+  SPEED: 4
   aimCursor: {fileID: 2800000, guid: 7e856ea8ccc7cd0df9432ac123d01de4, type: 3}
