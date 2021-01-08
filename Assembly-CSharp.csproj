@@ -36,7 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Camera.cs" />
+     <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\Units\Shooter\ShooterController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/vic/Unity/Hub/Editor/2019.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
