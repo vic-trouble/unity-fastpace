@@ -2155,7 +2155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1792ff0f80cc8b1da859b85c80af686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0}
+  aimCursor: {fileID: 2800000, guid: 7e856ea8ccc7cd0df9432ac123d01de4, type: 3}
+  followUnit: {fileID: 1965415636}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

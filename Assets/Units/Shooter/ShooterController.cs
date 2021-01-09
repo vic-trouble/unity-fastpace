@@ -10,11 +10,6 @@ public class ShooterController : MonoBehaviour
     // movement speed
     public float SPEED = 1f;
 
-    // aim cursor
-    public Texture2D aimCursor;
-
-    //private bool isRight = true;
-
     private string currentAnimation;
     private int animationCount = 0;
 
@@ -27,7 +22,6 @@ public class ShooterController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        Cursor.SetCursor(aimCursor, new Vector2(32, 32), CursorMode.Auto);
     }
 
     private string GetAnimPrefix(float direction)

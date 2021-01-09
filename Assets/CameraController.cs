@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Vector2 offset;
+    // aim cursor
+    public Texture2D aimCursor;
+
+    public GameObject followUnit;
 
     // Use this for initialization
     void Start ()
     {
-        offset = new Vector2(0, 0);
+        Cursor.SetCursor(aimCursor, new Vector2(32, 32), CursorMode.Auto);
 	}
 
 
     // Update is called once per frame
     void Update()
     {
-        Transform player = GameObject.Find("Shooter").transform;
-
         int lerpFactor = 40;
-        float x = Mathf.Lerp(transform.position.x, player.position.x + offset.x, Time.deltaTime * lerpFactor);
-        float y = Mathf.Lerp(transform.position.y, player.position.y + offset.y, Time.deltaTime * lerpFactor);
+        float x = Mathf.Lerp(transform.position.x, followUnit.transform.position.x, Time.deltaTime * lerpFactor);
+        float y = Mathf.Lerp(transform.position.y, followUnit.transform.position.y, Time.deltaTime * lerpFactor);
 
         transform.position = new Vector3(x, y, transform.position.z); // Camera follows the player with specified offset position
     }
