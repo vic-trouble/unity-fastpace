@@ -2525,6 +2525,12 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1965415636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8116044793240305802, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8116044794127096926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1988499558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2534,6 +2540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1988499559}
+  - component: {fileID: 1988499560}
   m_Layer: 0
   m_Name: +Effects
   m_TagString: Untagged
@@ -2556,6 +2563,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1988499560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988499558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f8c0f7e83922398b6bca33d03b91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
+    type: 3}
 --- !u!1001 &8116044794127096926
 PrefabInstance:
   m_ObjectHideFlags: 0

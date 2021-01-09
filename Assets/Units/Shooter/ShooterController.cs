@@ -2,62 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterController : MonoBehaviour
+public class ShooterController : UnitController
 {
-    // primary animation
-    private Animator animator;
-
-    // movement speed
-    public float SPEED = 1f;
-
-    private string currentAnimation;
-    private int animationCount = 0;
-
     private float nextShotTime = 0;
     public float SHOT_SPEED = 0.25f;
 
-    public GameObject splatterEffect;
+    // primary animation
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-    }
-
-    private string GetAnimPrefix(float direction)
-    {
-        if (direction < 45 || direction >= 360 - 45) {   // right
-            return "";  // used to be 'Side' in sprites
-        }
-        else if (direction >= 180 - 45 && direction < 180 + 45) { // left
-            return "";
-        }
-        else if (direction >= 45 && direction < 90 + 45) {  // up
-            return "Back-";
-        }
-        else {  // down
-            return "Front-";
-        }
-    }
-
-    private int GetFlipX(float direction)
-    {
-        if (direction >= 180 - 45 && direction < 180 + 45) // left
-            return -1;
-
-        return 1;
-    }
-
-    private void PlayAnimatinon(string animation)
-    {
-        if (currentAnimation == animation)
-            return;
-
-        animator.Play(animation);
-        currentAnimation = animation;
-
-        Debug.Log("Anim " + animationCount + " " + currentAnimation);
-        animationCount++;
     }
 
     // Update is called once per tick
@@ -73,9 +29,9 @@ public class ShooterController : MonoBehaviour
         string animation = "Idle";
 
         // move
-        float moveX = Input.GetAxis("Horizontal") * SPEED * Time.fixedDeltaTime;
-        float moveY = Input.GetAxis("Vertical") * SPEED * Time.fixedDeltaTime;
-        transform.position = new Vector3(transform.position.x + moveX, transform.position.y + moveY, transform.position.z);
+        float moveX = Input.GetAxis("Horizontal") * Time.fixedDeltaTime;
+        float moveY = Input.GetAxis("Vertical") * Time.fixedDeltaTime;
+        Move(moveX, moveY);
 
         if (Mathf.Abs(moveX) > 0 || Mathf.Abs(moveY) > 0)
             animation = "Walk";
@@ -83,16 +39,8 @@ public class ShooterController : MonoBehaviour
         // shooting
         if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
             animation = "Shoot";
+            Shoot(aimPosition);
             nextShotTime = Time.fixedTime + SHOT_SPEED;
-            var effect = Instantiate(splatterEffect, aimPosition, Quaternion.identity);
-            effect.transform.parent = GameObject.Find("+Effects").transform;
-            var particles = effect.GetComponent<ParticleSystem>();
-            particles.Play();
-            //particles.Emit();
-            //var emitParams = new ParticleSystem.EmitParams();
-            //emitParams.startColor = Color.red;
-            //emitParams.startSize = 0.2f;
-            //particles.Emit(emitParams, 10);
         }
         else if (Time.fixedTime < nextShotTime) {
             animation = "Shoot";
@@ -102,6 +50,6 @@ public class ShooterController : MonoBehaviour
         transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
 
         // animate
-        PlayAnimatinon(GetAnimPrefix(direction) + animation);
+        PlayAnimatinon(animator, GetAnimPrefix(direction) + animation);
     }
 }
