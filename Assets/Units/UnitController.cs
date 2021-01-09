@@ -61,8 +61,8 @@ public class UnitController : MonoBehaviour
     protected void Move(float dx, float dy)
     {
         Vector3 newPosition = new Vector3(transform.position.x + dx * SPEED, transform.position.y + dy * SPEED, transform.position.z);
-        if (CollisionController.Instance().HitTest(this, newPosition))
-            return;
+        //if (CollisionController.Instance().HitTest(this, newPosition))
+        //    return;
 
         transform.position = newPosition;
     }

@@ -20,15 +20,26 @@ public class CollisionController // : MonoBehaviour
 
     public bool HitTest(UnitController unit, Vector3 position)
     {
-        //foreach()
+        // TODO: this should be replaced with standard colliders
         var obstaclesMap = GameObject.Find("Map/Obstacles").GetComponent<Tilemap>();
         Vector3Int cellPosition = obstaclesMap.WorldToCell(position);
         cellPosition.z = 0;
-        Debug.Log("cell " + cellPosition.ToString());
         if (obstaclesMap.HasTile(cellPosition))
             return true;
 
-        // TODO: units cross-check
+        foreach (var testUnit in GameObject.FindObjectsOfType<UnitController>()) {
+            Debug.DrawLine(testUnit.transform.position, testUnit.transform.position + new Vector3(1, 0, 0));
+            Debug.DrawLine(testUnit.transform.position, testUnit.transform.position - new Vector3(1, 0, 0));
+            // do not test against itself
+            if (testUnit == unit)
+                continue;
+
+            Vector3 distance = testUnit.transform.position - unit.transform.position;
+            if (distance.magnitude < 1) {
+                Debug.Log("collided with " + testUnit.ToString() + " , " + distance.magnitude);
+                return true;
+            }
+        }
         return false;
     }
 }

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8116044793240305803}
   - component: {fileID: 8116044793240305801}
   - component: {fileID: 8116044793240305798}
+  - component: {fileID: 7930558818156187890}
+  - component: {fileID: 6899855592131615557}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116044793240305802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8652902, y: -1.4353704, z: -1.705186}
+  m_LocalPosition: {x: 3.892, y: -1.289, z: -1.705186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,3 +119,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 4
   SHOT_SPEED: 0.4
+--- !u!70 &7930558818156187890
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116044793240305802}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.019311743, y: 0.12614617}
+  m_Size: {x: 0.37039563, y: 0.13477497}
+  m_Direction: 1
+--- !u!50 &6899855592131615557
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116044793240305802}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
