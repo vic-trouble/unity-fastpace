@@ -3,7 +3,11 @@ guid: 490f8c0f7e83922398b6bca33d03b91c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dirtSplatterEffect: {fileID: 2507317139007339895, guid: 6ea5be52bec9588cab6008c963650a99,
+      type: 3}
+  - bloodSplatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

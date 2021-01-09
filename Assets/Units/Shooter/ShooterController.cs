@@ -6,14 +6,12 @@ public class ShooterController : UnitController
 {
     private float nextShotTime = 0;
     public float SHOT_SPEED = 0.25f;
-
-    // primary animation
-    private Animator animator;
+    public float SHOT_POWER = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        Init(GetComponent<Animator>());
     }
 
     // Update is called once per tick
@@ -41,7 +39,7 @@ public class ShooterController : UnitController
         if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
             animation = "Shoot";
             forceAnimation = true;
-            Shoot(aimPosition);
+            Shoot(aimPosition, SHOT_POWER);
             nextShotTime = Time.fixedTime + SHOT_SPEED;
         }
         else if (Time.fixedTime < nextShotTime) {
@@ -53,6 +51,6 @@ public class ShooterController : UnitController
         transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
 
         // animate
-        PlayAnimatinon(animator, GetAnimPrefix(direction) + animation, forceAnimation);
+        PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
     }
 }

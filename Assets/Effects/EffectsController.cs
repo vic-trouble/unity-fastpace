@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SplatterEffect
+{
+    Dirt,
+    Blood
+}
+
 public class EffectsController : MonoBehaviour
 {
-    public GameObject splatterEffect;
+    public GameObject dirtSplatterEffect;
+    public GameObject bloodSplatterEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +25,21 @@ public class EffectsController : MonoBehaviour
 
     }
 
-    public void SpawnSplatterEffect(Vector3 position)
+    private GameObject GetEffect(SplatterEffect effect)
     {
-        var effect = Instantiate(splatterEffect, position, Quaternion.identity);
-        effect.transform.parent = transform;
-        var particles = effect.GetComponent<ParticleSystem>();
-        particles.Play();
-        //particles.Emit();
-        //var emitParams = new ParticleSystem.EmitParams();
-        //emitParams.startColor = Color.red;
-        //emitParams.startSize = 0.2f;
-        //particles.Emit(emitParams, 10);
+        switch (effect) {
+            case SplatterEffect.Dirt:
+                return dirtSplatterEffect;
+            case SplatterEffect.Blood:
+                return bloodSplatterEffect;
+        }
+        return null;
+    }
+
+    public void SpawnSplatterEffect(Vector3 position, SplatterEffect effect)
+    {
+        var particles = Instantiate(GetEffect(effect), position, Quaternion.identity);
+        particles.transform.parent = transform;
+        particles.GetComponent<ParticleSystem>().Play();
     }
 }

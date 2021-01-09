@@ -2214,12 +2214,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &758633241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-    type: 3}
-  m_PrefabInstance: {fileID: 1424537701}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &807732670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2327,85 +2321,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3129628645365996154}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1424537701
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1988499559}
-    m_Modifications:
-    - target: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_Name
-      value: DirtSplatter
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506551, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506551, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.54410195
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825624592002506568, guid: b4d8586b32791827d9964c4272dcb192,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b4d8586b32791827d9964c4272dcb192, type: 3}
 --- !u!1 &1475738260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,8 +2603,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.98, y: -0.50719213, z: -2.1449327}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 758633241}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2705,7 +2619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490f8c0f7e83922398b6bca33d03b91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
+  dirtSplatterEffect: {fileID: 2507317139007339895, guid: 6ea5be52bec9588cab6008c963650a99,
+    type: 3}
+  bloodSplatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
     type: 3}
 --- !u!1001 &3129628645365996154
 PrefabInstance:
