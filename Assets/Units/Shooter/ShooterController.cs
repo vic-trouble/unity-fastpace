@@ -27,6 +27,7 @@ public class ShooterController : UnitController
             direction += 360;
 
         string animation = "Idle";
+        bool forceAnimation = false;
 
         // move
         float moveX = Input.GetAxis("Horizontal") * Time.fixedDeltaTime;
@@ -39,17 +40,19 @@ public class ShooterController : UnitController
         // shooting
         if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
             animation = "Shoot";
+            forceAnimation = true;
             Shoot(aimPosition);
             nextShotTime = Time.fixedTime + SHOT_SPEED;
         }
         else if (Time.fixedTime < nextShotTime) {
             animation = "Shoot";
+            return; // NB!
         }
 
         // flip if necessary
         transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
 
         // animate
-        PlayAnimatinon(animator, GetAnimPrefix(direction) + animation);
+        PlayAnimatinon(animator, GetAnimPrefix(direction) + animation, forceAnimation);
     }
 }

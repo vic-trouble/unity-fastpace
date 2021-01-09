@@ -36,9 +36,9 @@ public class UnitController : MonoBehaviour
         return 1;
     }
 
-    protected void PlayAnimatinon(Animator animator, string animation)
+    protected void PlayAnimatinon(Animator animator, string animation, bool force = false)
     {
-        if (currentAnimation == animation)
+        if (currentAnimation == animation && !force)
             return;
 
         animator.Play(animation);
