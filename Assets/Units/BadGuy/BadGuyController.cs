@@ -23,7 +23,7 @@ public class BadGuyController : UnitController
             direction += 360;
 
         // flip if necessary
-        transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
+        GetComponent<SpriteRenderer>().flipX = GetFlipX(direction) < 0;
 
         // animate
         string animation = "Idle";

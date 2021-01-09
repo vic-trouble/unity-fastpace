@@ -51,7 +51,7 @@ public class ShooterController : UnitController
         }
 
         // flip if necessary
-        transform.localScale = new Vector3(GetFlipX(direction), 1, 1);
+        GetComponent<SpriteRenderer>().flipX = GetFlipX(direction) < 0;
 
         // animate
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
