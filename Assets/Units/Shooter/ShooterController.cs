@@ -21,11 +21,13 @@ public class ShooterController : MonoBehaviour
     private float nextShotTime = 0;
     public float SHOT_SPEED = 0.25f;
 
+    public GameObject splatterEffect;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(aimCursor, new Vector2(32, 32), CursorMode.Auto);
     }
 
     private string GetAnimPrefix(float direction)
@@ -88,6 +90,15 @@ public class ShooterController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
             animation = "Shoot";
             nextShotTime = Time.fixedTime + SHOT_SPEED;
+            var effect = Instantiate(splatterEffect, aimPosition, Quaternion.identity);
+            effect.transform.parent = GameObject.Find("+Effects").transform;
+            var particles = effect.GetComponent<ParticleSystem>();
+            particles.Play();
+            //particles.Emit();
+            //var emitParams = new ParticleSystem.EmitParams();
+            //emitParams.startColor = Color.red;
+            //emitParams.startSize = 0.2f;
+            //particles.Emit(emitParams, 10);
         }
         else if (Time.fixedTime < nextShotTime) {
             animation = "Shoot";
