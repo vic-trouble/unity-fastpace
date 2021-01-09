@@ -9,7 +9,7 @@ public class UnitController: MonoBehaviour
 
     public float HEALTH = 10;
 
-    private float health;
+    protected float health;
 
     private Animator animator;
     private string currentAnimation;
@@ -72,20 +72,25 @@ public class UnitController: MonoBehaviour
         transform.position = newPosition;
     }
 
+    private void DisableColliders()
+    {
+        foreach (var collider in GetComponents<Collider2D>())
+            collider.enabled = false;
+    }
+
+    private void EnableColliders()
+    {
+        foreach (var collider in GetComponents<Collider2D>())
+            collider.enabled = true;
+    }
     protected void Shoot(Vector3 targetPosition, float damage)
     {
-        // disable self colliders
-        foreach (var collider in GetComponents<Collider2D>()) {
-            collider.enabled = false;
-        }
+        DisableColliders();
 
         Vector3 direction = targetPosition - transform.position;
         var hit = Physics2D.Raycast(transform.position, direction, direction.magnitude);
 
-        // enable self colliders
-        foreach (var collider in GetComponents<Collider2D>()) {
-            collider.enabled = true;
-        }
+        EnableColliders();
 
         if (hit) {
             UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
@@ -109,6 +114,17 @@ public class UnitController: MonoBehaviour
         if (health > 0) {
             PlayAnimatinon("Hit");
         }
+        else {
+            Die();
+        }
+    }
+
+    protected void Die()
+    {
+        health = 0;
+        DisableColliders();
+
+        PlayAnimatinon("Die");
     }
 
 }

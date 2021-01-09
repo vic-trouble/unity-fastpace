@@ -11,8 +11,11 @@ public class BadGuyController : UnitController
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (health <= 0)
+            return;
+
         // rotate to direction
         Vector2 aimPosition = GameObject.Find("Shooter").transform.position;
         float direction = -Vector2.SignedAngle(aimPosition - (Vector2)transform.position, Vector2.right);

@@ -17,6 +17,9 @@ public class ShooterController : UnitController
     // Update is called once per tick
     void FixedUpdate()
     {
+        if (health <= 0)
+            return;
+
         // rotate to direction
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 aimPosition = Camera.main.ScreenToWorldPoint(screenPosition);
