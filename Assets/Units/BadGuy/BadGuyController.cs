@@ -13,8 +13,13 @@ public class BadGuyController : UnitController
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (health <= 0)
+        var renderer = GetComponent<SpriteRenderer>();
+
+        // am I still alive?
+        if (health <= 0) {
+            renderer.sortingLayerName = "DeadBodies";
             return;
+        }
 
         // rotate to direction
         Vector2 aimPosition = GameObject.Find("Shooter").transform.position;
@@ -28,5 +33,8 @@ public class BadGuyController : UnitController
         // animate
         string animation = "Idle";
         PlayAnimatinon(GetAnimPrefix(direction) + animation);
+
+        // proper Y-sorting
+        renderer.sortingOrder = (int)(-transform.position.y * 10);
     }
 }

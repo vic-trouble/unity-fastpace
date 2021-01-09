@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: DeadBodies
+    uniqueID: 4095114155
+    locked: 0
   - name: Units
     uniqueID: 866605073
     locked: 0
