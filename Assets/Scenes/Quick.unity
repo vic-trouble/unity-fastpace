@@ -2393,7 +2393,7 @@ GameObject:
   - component: {fileID: 1492448240}
   - component: {fileID: 1492448239}
   m_Layer: 0
-  m_Name: Front
+  m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

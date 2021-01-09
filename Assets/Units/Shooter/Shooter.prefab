@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8116044793240305803}
   - component: {fileID: 8116044793240305801}
   - component: {fileID: 8116044793240305798}
+  - component: {fileID: 3581662356536856463}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -116,7 +117,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 4
-  aimCursor: {fileID: 2800000, guid: 7e856ea8ccc7cd0df9432ac123d01de4, type: 3}
   SHOT_SPEED: 0.4
-  splatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
-    type: 3}
+--- !u!70 &3581662356536856463
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116044793240305802}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.45833334}
+  m_Size: {x: 1, y: 0.9166667}
+  m_Direction: 1
