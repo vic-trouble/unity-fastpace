@@ -11,6 +11,12 @@ public enum BadGuyState
 
 public class BadGuyController : UnitController
 {
+    public float SHOOTING_RANGE = 5;
+
+    private float nextShotTime = 0;
+    public float SHOT_SPEED = 0.5f;
+    public float SHOT_POWER = 1;
+
     private BadGuyState state = BadGuyState.Idle;
 
     // Start is called before the first frame update
@@ -26,7 +32,8 @@ public class BadGuyController : UnitController
             return;
 
         // rotate to direction
-        Vector2 aimPosition = GameObject.Find("Shooter").transform.position;
+        GameObject target = GameObject.Find("Shooter");
+        Vector2 aimPosition = (Vector2)target.transform.position + Vector2.up / 2;
         float direction = -Vector2.SignedAngle(aimPosition - (Vector2)transform.position, Vector2.right);
         if (direction < 0)
             direction += 360;
@@ -36,14 +43,32 @@ public class BadGuyController : UnitController
 
         // animate
         string animation = "Idle";
+        bool forceAnimation = false;
         if (state == BadGuyState.Aggravated) {
-            Vector2 delta = aimPosition - (Vector2)transform.position;
-            float moveX = Mathf.Sign(delta.x) * Time.fixedDeltaTime;
-            float moveY = Mathf.Sign(delta.y) * Time.fixedDeltaTime;
-            Move(moveX, moveY);
-            animation = "Walk";
+            if (target.GetComponent<UnitController>().health <= 0) {
+                state = BadGuyState.Idle;
+            }
+            else {
+                Vector2 delta = aimPosition - (Vector2)transform.position;
+                if (delta.magnitude < SHOOTING_RANGE && Time.fixedTime >= nextShotTime) {
+                    animation = "Shoot";
+                    forceAnimation = true;
+                    Shoot(aimPosition, SHOT_POWER);
+                    nextShotTime = Time.fixedTime + SHOT_SPEED;
+                }
+                else if (Time.fixedTime < nextShotTime) {
+                    animation = "Shoot";
+                    return; // NB!
+                    }
+                else {
+                    float moveX = Mathf.Sign(delta.x) * Time.fixedDeltaTime;
+                    float moveY = Mathf.Sign(delta.y) * Time.fixedDeltaTime;
+                    Move(moveX, moveY);
+                    animation = "Walk";
+                }
+            }
         }
-        PlayAnimatinon(GetAnimPrefix(direction) + animation);
+        PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
 
         // proper Y-sorting
         var renderer = GetComponent<SpriteRenderer>();

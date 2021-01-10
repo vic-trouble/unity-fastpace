@@ -8,22 +8,27 @@ public class ShooterController : UnitController
     public float SHOT_SPEED = 0.25f;
     public float SHOT_POWER = 3;
 
+    private bool isDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
         Init(GetComponent<Animator>());
     }
 
+    protected override void OnDie()
+    {
+        isDead = true;
+
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.sortingLayerName = "DeadBodies";
+    }
+
     // Update is called once per tick
     void FixedUpdate()
     {
-        var renderer = GetComponent<SpriteRenderer>();
-
-        // am I still alive?
-        if (health <= 0) {
-            renderer.sortingLayerName = "DeadBodies";
+        if (isDead)
             return;
-        }
 
         // rotate to direction
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -62,6 +67,7 @@ public class ShooterController : UnitController
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
 
         // proper Y-sorting
+        var renderer = GetComponent<SpriteRenderer>();
         renderer.sortingOrder = (int)(-transform.position.y * 10);
     }
 }

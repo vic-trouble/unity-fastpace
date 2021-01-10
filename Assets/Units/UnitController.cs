@@ -9,7 +9,7 @@ public class UnitController: MonoBehaviour
 
     public float HEALTH = 10;
 
-    protected float health;
+    public float health { get; private set; }
 
     private Animator animator;
     private string currentAnimation;

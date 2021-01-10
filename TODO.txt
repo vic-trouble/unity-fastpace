@@ -6,3 +6,4 @@
 - houses
 - targets
 - bullet traces
+- infighting

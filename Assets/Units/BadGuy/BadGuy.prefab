@@ -120,6 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 1
   HEALTH: 10
+  SHOOTING_RANGE: 3
+  SHOT_SPEED: 1
+  SHOT_POWER: 1
 --- !u!70 &4605176155105131653
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
