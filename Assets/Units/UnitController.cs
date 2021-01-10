@@ -74,13 +74,13 @@ public class UnitController: MonoBehaviour
 
     private void DisableColliders()
     {
-        foreach (var collider in GetComponents<Collider2D>())
+        foreach (var collider in GetComponentsInChildren<Collider2D>())
             collider.enabled = false;
     }
 
     private void EnableColliders()
     {
-        foreach (var collider in GetComponents<Collider2D>())
+        foreach (var collider in GetComponentsInChildren<Collider2D>())
             collider.enabled = true;
     }
     protected void Shoot(Vector3 targetPosition, float damage)
