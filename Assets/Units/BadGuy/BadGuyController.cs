@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BadGuyState
+{
+    Idle,
+    Aggravated,
+    Dead
+}
+
 public class BadGuyController : UnitController
 {
+    private BadGuyState state = BadGuyState.Idle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,13 +22,8 @@ public class BadGuyController : UnitController
     // Update is called once per frame
     void FixedUpdate()
     {
-        var renderer = GetComponent<SpriteRenderer>();
-
-        // am I still alive?
-        if (health <= 0) {
-            renderer.sortingLayerName = "DeadBodies";
+        if (state == BadGuyState.Dead)
             return;
-        }
 
         // rotate to direction
         Vector2 aimPosition = GameObject.Find("Shooter").transform.position;
@@ -32,9 +36,30 @@ public class BadGuyController : UnitController
 
         // animate
         string animation = "Idle";
+        if (state == BadGuyState.Aggravated) {
+            Vector2 delta = aimPosition - (Vector2)transform.position;
+            float moveX = Mathf.Sign(delta.x) * Time.fixedDeltaTime;
+            float moveY = Mathf.Sign(delta.y) * Time.fixedDeltaTime;
+            Move(moveX, moveY);
+            animation = "Walk";
+        }
         PlayAnimatinon(GetAnimPrefix(direction) + animation);
 
         // proper Y-sorting
+        var renderer = GetComponent<SpriteRenderer>();
         renderer.sortingOrder = (int)(-transform.position.y * 10);
+    }
+
+    protected override void OnHit()
+    {
+        if (state == BadGuyState.Idle)
+            state = BadGuyState.Aggravated;
+    }
+
+    protected override void OnDie()
+    {
+        state = BadGuyState.Dead;
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.sortingLayerName = "DeadBodies";
     }
 }

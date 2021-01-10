@@ -107,15 +107,24 @@ public class UnitController: MonoBehaviour
         }
     }
 
+    protected virtual void OnHit()
+    {
+    }
+    protected virtual void OnDie()
+    {
+    }
+
     protected void TakeDamage(float damage)
     {
         health -= damage;
 
         if (health > 0) {
             PlayAnimatinon("Hit");
+            OnHit();
         }
         else {
             Die();
+            OnDie();
         }
     }
 
