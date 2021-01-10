@@ -12,12 +12,14 @@ public enum BadGuyState
 public class BadGuyController : UnitController
 {
     public float SHOOTING_RANGE = 5;
+    public float ACCURACY = 0.5f;
 
     private float nextShotTime = 0;
     public float SHOT_SPEED = 0.5f;
     public float SHOT_POWER = 1;
 
     private BadGuyState state = BadGuyState.Idle;
+    private UnitController target;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +34,13 @@ public class BadGuyController : UnitController
             return;
 
         // rotate to direction
-        GameObject target = GameObject.Find("Shooter");
-        Vector2 aimPosition = (Vector2)target.transform.position + Vector2.up / 2;
-        float direction = -Vector2.SignedAngle(aimPosition - (Vector2)transform.position, Vector2.right);
-        if (direction < 0)
-            direction += 360;
+        float direction = -90;
+        if (target) {
+            Vector2 aimPosition = (Vector2)target.transform.position;
+            direction = -Vector2.SignedAngle(aimPosition - (Vector2)transform.position, Vector2.right);
+            if (direction < 0)
+                direction += 360;
+        }
 
         // flip if necessary
         GetComponent<SpriteRenderer>().flipX = GetFlipX(direction) < 0;
@@ -45,10 +49,11 @@ public class BadGuyController : UnitController
         string animation = "Idle";
         bool forceAnimation = false;
         if (state == BadGuyState.Aggravated) {
-            if (target.GetComponent<UnitController>().health <= 0) {
+            if (!target || target.health <= 0) {
                 state = BadGuyState.Idle;
             }
             else {
+                Vector2 aimPosition = (Vector2)target.transform.position + Vector2.up / 2 + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY));
                 Vector2 delta = aimPosition - (Vector2)transform.position;
                 if (delta.magnitude < SHOOTING_RANGE && Time.fixedTime >= nextShotTime) {
                     animation = "Shoot";
@@ -75,10 +80,11 @@ public class BadGuyController : UnitController
         renderer.sortingOrder = (int)(-transform.position.y * 10);
     }
 
-    protected override void OnHit()
+    protected override void OnHit(UnitController attacker)
     {
         if (state == BadGuyState.Idle)
             state = BadGuyState.Aggravated;
+        target = attacker;
     }
 
     protected override void OnDie()

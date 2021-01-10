@@ -7,6 +7,7 @@ public class ShooterController : UnitController
     private float nextShotTime = 0;
     public float SHOT_SPEED = 0.25f;
     public float SHOT_POWER = 3;
+    public float ACCURACY = 0.5f;
 
     private bool isDead = false;
 
@@ -52,7 +53,7 @@ public class ShooterController : UnitController
         if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
             animation = "Shoot";
             forceAnimation = true;
-            Shoot(aimPosition, SHOT_POWER);
+            Shoot(aimPosition + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY)), SHOT_POWER);
             nextShotTime = Time.fixedTime + SHOT_SPEED;
         }
         else if (Time.fixedTime < nextShotTime) {

@@ -95,7 +95,7 @@ public class UnitController: MonoBehaviour
         if (hit) {
             UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
             if (unit) {
-                unit.TakeDamage(damage);
+                unit.TakeDamage(damage, this);
                 GameObject.Find("+Effects").GetComponent<EffectsController>().SpawnSplatterEffect(hit.centroid, SplatterEffect.Blood);
             }
             else {
@@ -107,20 +107,20 @@ public class UnitController: MonoBehaviour
         }
     }
 
-    protected virtual void OnHit()
+    protected virtual void OnHit(UnitController attacker)
     {
     }
     protected virtual void OnDie()
     {
     }
 
-    protected void TakeDamage(float damage)
+    protected void TakeDamage(float damage, UnitController attacker)
     {
         health -= damage;
 
         if (health > 0) {
             PlayAnimatinon("Hit");
-            OnHit();
+            OnHit(attacker);
         }
         else {
             Die();
