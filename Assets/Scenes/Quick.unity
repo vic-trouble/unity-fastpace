@@ -2851,6 +2851,8 @@ MonoBehaviour:
     type: 3}
   bloodSplatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
     type: 3}
+  bulletTrailEffect: {fileID: 63820060666885558, guid: 5659190e0f5e8313cab4821e1ac52459,
+    type: 3}
 --- !u!1001 &3129628645365996154
 PrefabInstance:
   m_ObjectHideFlags: 0

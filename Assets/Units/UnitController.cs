@@ -92,18 +92,20 @@ public class UnitController: MonoBehaviour
 
         EnableColliders();
 
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
         if (hit) {
             UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
             if (unit) {
                 unit.TakeDamage(damage, this);
-                GameObject.Find("+Effects").GetComponent<EffectsController>().SpawnSplatterEffect(hit.centroid, SplatterEffect.Blood);
+                effectsController.SpawnSplatterEffect(hit.centroid, SplatterEffect.Blood);
             }
             else {
-                GameObject.Find("+Effects").GetComponent<EffectsController>().SpawnSplatterEffect(hit.centroid, SplatterEffect.Dirt);
+                effectsController.SpawnSplatterEffect(hit.centroid, SplatterEffect.Dirt);
             }
         }
         else {
-            GameObject.Find("+Effects").GetComponent<EffectsController>().SpawnSplatterEffect(targetPosition, SplatterEffect.Dirt);
+            effectsController.SpawnSplatterEffect(targetPosition, SplatterEffect.Dirt);
         }
     }
 

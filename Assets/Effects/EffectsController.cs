@@ -12,6 +12,7 @@ public class EffectsController : MonoBehaviour
 {
     public GameObject dirtSplatterEffect;
     public GameObject bloodSplatterEffect;
+    public GameObject bulletTrailEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -41,5 +42,13 @@ public class EffectsController : MonoBehaviour
         var particles = Instantiate(GetEffect(effect), position, Quaternion.identity);
         particles.transform.parent = transform;
         particles.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void SpawnBulletTrailEffect(Vector3 start, Vector3 end)
+    {
+        start = start + (end - start).normalized * 0.25f;
+        var trail = Instantiate(bulletTrailEffect, start, Quaternion.identity);
+        trail.transform.parent = transform;
+        trail.GetComponent<BulletController>().Init(start, end);
     }
 }

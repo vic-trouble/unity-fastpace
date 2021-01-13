@@ -1,9 +1,23 @@
-- screen feedback when shooting/exploding
-- rounds paticles
+- screen shake when shooting/exploding
+- shot rounds paticles
 - blood particles
+    - make it via material collider tags
+- shot decals
 - debris
 - destructible env
 - houses
-- targets
+    - outdoor
+    - indoor
 - bullet traces
-- infighting
+- mobs infighting
+    - aggravation in range
+- weapon reload
+- HUD
+    - HP
+    - rounds
+- SFX
+- music
+- different type of rounds
+- bots
+- refactor into mixins'n'managers
+- fix cactus animiation

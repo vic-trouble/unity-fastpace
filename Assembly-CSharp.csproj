@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\CollisionController.cs" />
+     <Compile Include="Assets\Effects\BulletController.cs" />
      <Compile Include="Assets\Effects\EffectsController.cs" />
      <Compile Include="Assets\Effects\ParticleSortingLayer.cs" />
      <Compile Include="Assets\Units\BadGuy\BadGuyController.cs" />
