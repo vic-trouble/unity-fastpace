@@ -96,12 +96,15 @@ public class UnitController: MonoBehaviour
         effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
         if (hit) {
             UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
-            if (unit) {
+            if (unit) {// TODO: rework with tags!
                 unit.TakeDamage(damage, this);
-                effectsController.SpawnSplatterEffect(hit.centroid, SplatterEffect.Blood);
+                effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Blood);
+            }
+            else if (hit.transform.gameObject.tag == "wall") {
+                effectsController.SpawnBulletHole(hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f));
             }
             else {
-                effectsController.SpawnSplatterEffect(hit.centroid, SplatterEffect.Dirt);
+                effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Dirt);
             }
         }
         else {

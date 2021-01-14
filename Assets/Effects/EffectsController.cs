@@ -13,6 +13,8 @@ public class EffectsController : MonoBehaviour
     public GameObject dirtSplatterEffect;
     public GameObject bloodSplatterEffect;
     public GameObject bulletTrailEffect;
+    public GameObject concreteBulletHole;
+    public GameObject woodBulletHole;
 
     // Start is called before the first frame update
     void Start()
@@ -37,18 +39,28 @@ public class EffectsController : MonoBehaviour
         return null;
     }
 
+    private GameObject Spawn(GameObject effect, Vector3 position)
+    {
+        GameObject effectObj = Instantiate(effect, position, Quaternion.identity);
+        effectObj.transform.parent = transform;
+        return effectObj;
+    }
+
     public void SpawnSplatterEffect(Vector3 position, SplatterEffect effect)
     {
-        var particles = Instantiate(GetEffect(effect), position, Quaternion.identity);
-        particles.transform.parent = transform;
+        var particles = Spawn(GetEffect(effect), position);
         particles.GetComponent<ParticleSystem>().Play();
     }
 
     public void SpawnBulletTrailEffect(Vector3 start, Vector3 end)
     {
         start = start + (end - start).normalized * 0.25f;
-        var trail = Instantiate(bulletTrailEffect, start, Quaternion.identity);
-        trail.transform.parent = transform;
+        var trail = Spawn(bulletTrailEffect, start);
         trail.GetComponent<BulletController>().Init(start, end);
+    }
+
+    public void SpawnBulletHole(Vector3 position)
+    {
+        var hole = Spawn(concreteBulletHole, position);
     }
 }
