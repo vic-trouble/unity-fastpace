@@ -2807,7 +2807,7 @@ GameObject:
   - component: {fileID: 1686958064}
   m_Layer: 0
   m_Name: Buildings
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3069,6 +3069,10 @@ MonoBehaviour:
   bloodSplatterEffect: {fileID: 5825624592002506549, guid: b4d8586b32791827d9964c4272dcb192,
     type: 3}
   bulletTrailEffect: {fileID: 63820060666885558, guid: 5659190e0f5e8313cab4821e1ac52459,
+    type: 3}
+  concreteBulletHole: {fileID: 8967875534630821258, guid: 405e496f9096f1d62ad3c7e63bde36eb,
+    type: 3}
+  woodBulletHole: {fileID: 45135893336800615, guid: 7dd6e51988dcfbb01b5c0908a23f0ab5,
     type: 3}
 --- !u!1001 &3129628645365996154
 PrefabInstance:

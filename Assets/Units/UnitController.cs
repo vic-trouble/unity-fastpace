@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class UnitController: MonoBehaviour
 {
@@ -101,7 +102,14 @@ public class UnitController: MonoBehaviour
                 effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Blood);
             }
             else if (hit.transform.gameObject.tag == "wall") {
-                effectsController.SpawnBulletHole(hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f));
+                if (/*Vector2.Angle(hit.normal, direction) < 45*/true) {
+                    Debug.DrawRay(hit.point, hit.normal.normalized * 0.2f, Color.white, 2);
+                    var tileMap = hit.transform.gameObject.GetComponent<Tilemap>();
+                    string texture = tileMap.GetSprite(tileMap.WorldToCell(hit.point + (Vector2)direction.normalized * 0.1f)).texture.name;
+                    Debug.Log("texture " + texture);
+                    bool isWood = texture == "wooden-wall";
+                    effectsController.SpawnBulletHole(hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f), isWood);
+                }
             }
             else {
                 effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Dirt);

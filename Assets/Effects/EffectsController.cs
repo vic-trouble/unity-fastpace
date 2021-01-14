@@ -59,8 +59,8 @@ public class EffectsController : MonoBehaviour
         trail.GetComponent<BulletController>().Init(start, end);
     }
 
-    public void SpawnBulletHole(Vector3 position)
+    public void SpawnBulletHole(Vector3 position, bool isWood)
     {
-        var hole = Spawn(concreteBulletHole, position);
+        var hole = Spawn(isWood ? woodBulletHole : concreteBulletHole, position);
     }
 }
