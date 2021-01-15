@@ -3078,6 +3078,10 @@ MonoBehaviour:
     type: 3}
   woodBulletHole: {fileID: 45135893336800615, guid: 7dd6e51988dcfbb01b5c0908a23f0ab5,
     type: 3}
+  concreteDebris: {fileID: 327792445213432698, guid: d568416b8a985144cbe9f2b2c0da2d53,
+    type: 3}
+  woodDebris: {fileID: 3752947123145552016, guid: 507d3cd90960c3c49bb8a3c1cb10de29,
+    type: 3}
 --- !u!1001 &3129628645365996154
 PrefabInstance:
   m_ObjectHideFlags: 0

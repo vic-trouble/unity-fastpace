@@ -21,3 +21,5 @@
 - bots
 - refactor into mixins'n'managers
 - fix cactus animiation
+- wood shoot-through
+- limit decals

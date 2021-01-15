@@ -108,7 +108,9 @@ public class UnitController: MonoBehaviour
                     string texture = tileMap.GetSprite(tileMap.WorldToCell(hit.point + (Vector2)direction.normalized * 0.1f)).texture.name;
                     Debug.Log("texture " + texture);
                     bool isWood = texture == "wooden-wall";
-                    effectsController.SpawnBulletHole(hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f), isWood);
+                    Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
+                    effectsController.SpawnBulletHole(effectPos, isWood);
+                    effectsController.SpawnDebris(effectPos, isWood);
                 }
             }
             else {

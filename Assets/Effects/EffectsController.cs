@@ -15,6 +15,8 @@ public class EffectsController : MonoBehaviour
     public GameObject bulletTrailEffect;
     public GameObject concreteBulletHole;
     public GameObject woodBulletHole;
+    public GameObject concreteDebris;
+    public GameObject woodDebris;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,11 @@ public class EffectsController : MonoBehaviour
 
     public void SpawnBulletHole(Vector3 position, bool isWood)
     {
-        var hole = Spawn(isWood ? woodBulletHole : concreteBulletHole, position);
+        Spawn(isWood ? woodBulletHole : concreteBulletHole, position);
+    }
+
+    public void SpawnDebris(Vector3 position, bool isWood)
+    {
+        Spawn(isWood ? woodDebris : concreteDebris, position);
     }
 }
