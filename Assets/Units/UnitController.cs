@@ -66,11 +66,7 @@ public class UnitController: MonoBehaviour
 
     protected void Move(float dx, float dy)
     {
-        Vector3 newPosition = new Vector3(transform.position.x + dx * SPEED, transform.position.y + dy * SPEED, transform.position.z);
-        //if (CollisionController.Instance().HitTest(this, newPosition))
-        //    return;
-
-        transform.position = newPosition;
+        transform.position = new Vector3(transform.position.x + dx * SPEED, transform.position.y + dy * SPEED, transform.position.z);
     }
 
     private void DisableColliders()
@@ -97,28 +93,23 @@ public class UnitController: MonoBehaviour
         effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
         if (hit) {
             UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
-            if (unit) {// TODO: rework with tags!
+            if (unit) {
                 unit.TakeDamage(damage, this);
-                effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Blood);
-            }
-            else if (hit.transform.gameObject.tag == "wall") {
-                if (/*Vector2.Angle(hit.normal, direction) < 45*/true) {
-                    Debug.DrawRay(hit.point, hit.normal.normalized * 0.2f, Color.white, 2);
-                    var tileMap = hit.transform.gameObject.GetComponent<Tilemap>();
-                    string texture = tileMap.GetSprite(tileMap.WorldToCell(hit.point + (Vector2)direction.normalized * 0.1f)).texture.name;
-                    Debug.Log("texture " + texture);
-                    bool isWood = texture == "wooden-wall";
-                    Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
-                    effectsController.SpawnBulletHole(effectPos, isWood);
-                    effectsController.SpawnDebris(effectPos, isWood);
-                }
+                effectsController.SpawnSplatterEffect(hit.point, Material.Meat);
             }
             else {
-                effectsController.SpawnSplatterEffect(hit.point, SplatterEffect.Dirt);
+                Vector2 probePoint = hit.point + (Vector2)direction.normalized * 0.05f;
+                Material material = MaterialDetector.GuessMaterial(hit.transform.gameObject, probePoint);
+                Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
+                effectsController.SpawnBulletHole(effectPos, material);
+                effectsController.SpawnDebris(effectPos, material);
             }
         }
         else {
-            effectsController.SpawnSplatterEffect(targetPosition, SplatterEffect.Dirt);
+            var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
+            string texture = tileMap.GetSprite(tileMap.WorldToCell(targetPosition)).texture.name;
+            Material material = MaterialDetector.GuessMaterialFromTexture(texture);
+            effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
         }
     }
 

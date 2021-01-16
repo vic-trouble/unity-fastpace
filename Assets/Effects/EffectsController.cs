@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SplatterEffect
-{
-    Dirt,
-    Blood
-}
-
 public class EffectsController : MonoBehaviour
 {
     public GameObject dirtSplatterEffect;
@@ -30,15 +24,16 @@ public class EffectsController : MonoBehaviour
 
     }
 
-    private GameObject GetEffect(SplatterEffect effect)
+    private GameObject GetSplatterEffect(Material material)
     {
-        switch (effect) {
-            case SplatterEffect.Dirt:
+        switch (material) {
+            case Material.Dirt:
                 return dirtSplatterEffect;
-            case SplatterEffect.Blood:
+            case Material.Meat:
                 return bloodSplatterEffect;
+            default:
+                return null;
         }
-        return null;
     }
 
     private GameObject Spawn(GameObject effect, Vector3 position)
@@ -48,10 +43,13 @@ public class EffectsController : MonoBehaviour
         return effectObj;
     }
 
-    public void SpawnSplatterEffect(Vector3 position, SplatterEffect effect)
+    public void SpawnSplatterEffect(Vector3 position, Material material)
     {
-        var particles = Spawn(GetEffect(effect), position);
-        particles.GetComponent<ParticleSystem>().Play();
+        var effect = GetSplatterEffect(material);
+        if (effect) {
+            var particles = Spawn(effect, position);
+            particles.GetComponent<ParticleSystem>().Play();
+        }
     }
 
     public void SpawnBulletTrailEffect(Vector3 start, Vector3 end)
@@ -61,13 +59,43 @@ public class EffectsController : MonoBehaviour
         trail.GetComponent<BulletController>().Init(start, end);
     }
 
-    public void SpawnBulletHole(Vector3 position, bool isWood)
+    private GameObject GetBulletHoleEffect(Material material)
     {
-        Spawn(isWood ? woodBulletHole : concreteBulletHole, position);
+        switch (material) {
+            case Material.Wood:
+                return woodBulletHole;
+            case Material.Concrete:
+                return concreteBulletHole;
+            default:
+                return null;
+        }
     }
 
-    public void SpawnDebris(Vector3 position, bool isWood)
+    public void SpawnBulletHole(Vector3 position, Material material)
     {
-        Spawn(isWood ? woodDebris : concreteDebris, position);
+        var effect = GetBulletHoleEffect(material);
+        if (effect) {
+            Spawn(effect, position);
+        }
+    }
+
+    private GameObject GetDebrisEffect(Material material)
+    {
+        switch (material) {
+            case Material.Wood:
+                return woodDebris;
+            case Material.Concrete:
+                return concreteDebris;
+            default:
+                return null;
+        }
+    }
+
+    public void SpawnDebris(Vector3 position, Material material)
+    {
+        var effect = GetDebrisEffect(material);
+        if (effect) {
+            Spawn(effect, position);
+        }
     }
 }
