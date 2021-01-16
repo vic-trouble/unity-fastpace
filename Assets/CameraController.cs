@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     public GameObject followUnit;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         Cursor.SetCursor(aimCursor, new Vector2(32, 32), CursorMode.Auto);
 	}
