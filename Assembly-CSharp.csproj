@@ -41,9 +41,10 @@
      <Compile Include="Assets\Effects\BulletHoleController.cs" />
      <Compile Include="Assets\Effects\EffectsController.cs" />
      <Compile Include="Assets\Effects\ParticleSortingLayer.cs" />
-     <Compile Include="Assets\EnterPortal.cs" />
-     <Compile Include="Assets\LeavePortal.cs" />
      <Compile Include="Assets\MaterialDetector.cs" />
+     <Compile Include="Assets\Tiles\Buildings\DoorController.cs" />
+     <Compile Include="Assets\Tiles\Buildings\EnterPortal.cs" />
+     <Compile Include="Assets\Tiles\Buildings\LeavePortal.cs" />
      <Compile Include="Assets\Tiles\Buildings\RoofController.cs" />
      <Compile Include="Assets\Units\BadGuy\BadGuyController.cs" />
      <Compile Include="Assets\Units\Shooter\ShooterController.cs" />
