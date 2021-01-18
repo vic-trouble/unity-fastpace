@@ -11,10 +11,14 @@ public class ShooterController : UnitController
 
     private bool isDead = false;
 
+    public GameObject ammoHUDBullet;
+    public GameObject ammoHUDContainer;
+
     // Start is called before the first frame update
     void Start()
     {
         Init(GetComponent<Animator>());
+        DrawHUDBullets();
     }
 
     protected override void OnDie()
@@ -23,6 +27,26 @@ public class ShooterController : UnitController
 
         var renderer = GetComponent<SpriteRenderer>();
         renderer.sortingLayerName = "DeadBodies";
+    }
+
+    protected override void OnShoot()
+    {
+        DrawHUDBullets();
+    }
+
+    private void DrawHUDBullets()
+    {
+        var children = new List<GameObject>();
+        foreach (Transform child in ammoHUDContainer.transform) {
+            children.Add(child.gameObject);
+        }
+        children.ForEach(child => Destroy(child));
+
+        for (int i = 0; i < ammo; i++)
+        {
+            var bullet = Instantiate(ammoHUDBullet, ammoHUDContainer.transform.position + new Vector3(10 * i, 0, 0), Quaternion.identity);
+            bullet.transform.SetParent(ammoHUDContainer.transform);
+        }
     }
 
     // Update is called once per tick
@@ -50,7 +74,7 @@ public class ShooterController : UnitController
             animation = "Walk";
 
         // shooting
-        if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
+        if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime && ammo > 0) {
             animation = "Shoot";
             forceAnimation = true;
             Shoot(aimPosition + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY)), SHOT_POWER);

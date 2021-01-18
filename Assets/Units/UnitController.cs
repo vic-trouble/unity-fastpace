@@ -15,6 +15,8 @@ public class UnitController: MonoBehaviour
     private Animator animator;
     private string currentAnimation;
 
+    protected int ammo = 6;
+
     protected void Init(Animator animator)
     {
         health = HEALTH;
@@ -111,12 +113,18 @@ public class UnitController: MonoBehaviour
             Material material = MaterialDetector.GuessMaterialFromTexture(texture);
             effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
         }
+
+        ammo--;
+        OnShoot();
     }
 
     protected virtual void OnHit(UnitController attacker)
     {
     }
     protected virtual void OnDie()
+    {
+    }
+    protected virtual void OnShoot()
     {
     }
 
