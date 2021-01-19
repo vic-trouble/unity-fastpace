@@ -14,14 +14,11 @@ public class ShooterController : UnitController
 
     private bool isDead = false;
 
-    public GameObject ammoHUDBullet;
-    public GameObject ammoHUDContainer;
-
     // Start is called before the first frame update
     void Start()
     {
         Init(GetComponent<Animator>());
-        DrawHUDBullets();
+        UpdateHUDAmmo();
     }
 
     protected override void OnDie()
@@ -38,24 +35,15 @@ public class ShooterController : UnitController
         healthBar.SetHealthPortion(health / HEALTH);
     }
 
-    protected override void OnShoot()
+    private void UpdateHUDAmmo()
     {
-        DrawHUDBullets();
+        var ammoBar = GameObject.Find("AmmoBar").GetComponent<AmmoBarController>();
+        ammoBar.SetAmmo(ammo);        
     }
 
-    private void DrawHUDBullets()
+    protected override void OnShoot()
     {
-        var children = new List<GameObject>();
-        foreach (Transform child in ammoHUDContainer.transform) {
-            children.Add(child.gameObject);
-        }
-        children.ForEach(child => Destroy(child));
-
-        for (int i = 0; i < ammo; i++)
-        {
-            var bullet = Instantiate(ammoHUDBullet, ammoHUDContainer.transform.position + new Vector3(10 * i, 0, 0), Quaternion.identity);
-            bullet.transform.SetParent(ammoHUDContainer.transform);
-        }
+        UpdateHUDAmmo();
     }
 
     private void StartReload()
@@ -114,7 +102,7 @@ public class ShooterController : UnitController
         // reload
         if (nextReloadTime != 0 && Time.fixedTime >= nextReloadTime) {
             Reload();
-            DrawHUDBullets();
+            UpdateHUDAmmo();
             nextReloadTime = 0;
         }
 
