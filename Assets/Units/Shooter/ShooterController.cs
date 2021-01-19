@@ -5,9 +5,12 @@ using UnityEngine;
 public class ShooterController : UnitController
 {
     private float nextShotTime = 0;
+    private float nextReloadTime = 0;   // TODO: make some timer?
+
     public float SHOT_SPEED = 0.25f;
     public float SHOT_POWER = 3;
     public float ACCURACY = 0.5f;
+    public float RELOAD_SPEED = 0.5f;
 
     private bool isDead = false;
 
@@ -49,6 +52,14 @@ public class ShooterController : UnitController
         }
     }
 
+    private void StartReload()
+    {
+        // no animation yet
+        if (nextReloadTime == 0) {
+            nextReloadTime = Time.fixedTime + RELOAD_SPEED;
+        }
+    }
+
     // Update is called once per tick
     void FixedUpdate()
     {
@@ -74,15 +85,31 @@ public class ShooterController : UnitController
             animation = "Walk";
 
         // shooting
-        if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime && ammo > 0) {
-            animation = "Shoot";
-            forceAnimation = true;
-            Shoot(aimPosition + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY)), SHOT_POWER);
-            nextShotTime = Time.fixedTime + SHOT_SPEED;
+        if (Input.GetButton("Fire1") && Time.fixedTime >= nextShotTime) {
+            if (ammo > 0) {
+                animation = "Shoot";
+                forceAnimation = true;
+                Shoot(aimPosition + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY)), SHOT_POWER);
+                nextShotTime = Time.fixedTime + SHOT_SPEED;
+            }
+            else {
+                StartReload();
+            }
         }
         else if (Time.fixedTime < nextShotTime) {
             animation = "Shoot";
             return; // NB!
+        }
+
+        if (Input.GetKey(KeyCode.R) && ammo < AMMO) {
+            StartReload();
+        }
+
+        // reload
+        if (nextReloadTime != 0 && Time.fixedTime >= nextReloadTime) {
+            Reload();
+            DrawHUDBullets();
+            nextReloadTime = 0;
         }
 
         // flip if necessary

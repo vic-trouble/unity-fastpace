@@ -15,12 +15,20 @@ public class UnitController: MonoBehaviour
     private Animator animator;
     private string currentAnimation;
 
-    protected int ammo = 6;
+    public int AMMO = 6;
+
+    protected int ammo;
 
     protected void Init(Animator animator)
     {
+        ammo = AMMO;
         health = HEALTH;
         this.animator = animator;
+    }
+
+    protected void Reload()
+    {
+        ammo = AMMO;
     }
 
     protected string GetAnimPrefix(float direction)
