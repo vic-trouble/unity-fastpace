@@ -32,6 +32,12 @@ public class ShooterController : UnitController
         renderer.sortingLayerName = "DeadBodies";
     }
 
+    protected override void OnHit(UnitController attacker)
+    {
+        var healthBar = GameObject.Find("HealthBar").GetComponent<HealthBarController>();
+        healthBar.SetHealthPortion(health / HEALTH);
+    }
+
     protected override void OnShoot()
     {
         DrawHUDBullets();
