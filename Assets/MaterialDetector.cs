@@ -9,7 +9,8 @@ public enum Material
     Dirt,
     Meat,
     Wood,
-    Concrete
+    Concrete,
+    Glass
 }
 
 public class MaterialDetector
@@ -32,6 +33,8 @@ public class MaterialDetector
             return Material.Wood;
         else if (texture.StartsWith("concrete") || texture.StartsWith("brick")) 
             return Material.Concrete;
+        else if (texture.StartsWith("glass"))
+            return Material.Glass;
         return Material.None;
     }
 }

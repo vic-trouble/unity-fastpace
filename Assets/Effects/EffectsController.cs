@@ -7,10 +7,14 @@ public class EffectsController : MonoBehaviour
     public GameObject dirtSplatterEffect;
     public GameObject bloodSplatterEffect;
     public GameObject bulletTrailEffect;
+    
     public GameObject concreteBulletHole;
     public GameObject woodBulletHole;
+    public GameObject glassBulletHole;
+
     public GameObject concreteDebris;
     public GameObject woodDebris;
+    public GameObject glassDebris;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +70,8 @@ public class EffectsController : MonoBehaviour
                 return woodBulletHole;
             case Material.Concrete:
                 return concreteBulletHole;
+            case Material.Glass:
+                return glassBulletHole;
             default:
                 return null;
         }
@@ -86,6 +92,8 @@ public class EffectsController : MonoBehaviour
                 return woodDebris;
             case Material.Concrete:
                 return concreteDebris;
+            case Material.Glass:
+                return glassDebris;
             default:
                 return null;
         }
