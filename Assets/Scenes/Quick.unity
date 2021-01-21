@@ -4967,6 +4967,7 @@ GameObject:
   - component: {fileID: 1722554990}
   - component: {fileID: 1722554989}
   - component: {fileID: 1722554991}
+  - component: {fileID: 1722554992}
   m_Layer: 0
   m_Name: Walls
   m_TagString: wall
@@ -5068,8 +5069,8 @@ Tilemap:
   - first: {x: 2, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5339,8 +5340,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: bc6882947bf8f1643b9838510979436c, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 05136b09a5c57167abf81fa3387a687e, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7e96082e9246e2242b2f084ac6f44d52, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: bb8fea5394d9e6f8a83d18d41659dec5, type: 3}
@@ -5354,8 +5357,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 87bbbadff35c006088e284782bf2aa18, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 4843a7129a4235125a07ba7edd40ca73, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 564a3233128c963488486e61f17dd730, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: dc93799e3b8852a48bd18d73883960a8, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 28
     m_Data:
@@ -5418,6 +5423,21 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1722554992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722554987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd5b9e0edeaf8a40b9f38ea5696a2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destruction:
+  - {fileID: 11400000, guid: 7e96082e9246e2242b2f084ac6f44d52, type: 2}
+  - {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
 --- !u!4 &1853454653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3129628645197339797, guid: 2734abcf5f35c0a2da92ce535bbc6961,

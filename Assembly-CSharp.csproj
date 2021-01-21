@@ -53,6 +53,7 @@
     <UnityVersion>2020.2.1f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\HUD\AmmoBarController.cs" />
     <Compile Include="Assets\Tiles\Buildings\DoorController.cs" />
     <Compile Include="Assets\Tiles\Buildings\EnterPortal.cs" />
     <Compile Include="Assets\Units\BadGuy\BadGuyController.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="Assets\Units\Shooter\ShooterController.cs" />
     <Compile Include="Assets\Tiles\Buildings\RoofController.cs" />
     <Compile Include="Assets\HUD\HealthBarController.cs" />
-    <Compile Include="Assets\HUD\AmmoBarController.cs" />
+    <Compile Include="Assets\Tiles\Buildings\WallsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -113,6 +113,11 @@ public class UnitController: MonoBehaviour
                 Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
                 effectsController.SpawnBulletHole(effectPos, material);
                 effectsController.SpawnDebris(effectPos, material);
+
+                var wallsController = hit.transform.gameObject.GetComponent<WallsController>();
+                if (wallsController) {
+                    wallsController.DealDamage(targetPosition, damage);
+                }
             }
         }
         else {
