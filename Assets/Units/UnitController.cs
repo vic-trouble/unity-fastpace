@@ -116,7 +116,7 @@ public class UnitController: MonoBehaviour
 
                 var wallsController = hit.transform.gameObject.GetComponent<WallsController>();
                 if (wallsController) {
-                    wallsController.DealDamage(targetPosition, damage);
+                    wallsController.DealDamage(effectPos, damage);
                 }
             }
         }
