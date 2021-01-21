@@ -5069,8 +5069,8 @@ Tilemap:
   - first: {x: 2, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5340,10 +5340,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: bc6882947bf8f1643b9838510979436c, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 05136b09a5c57167abf81fa3387a687e, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 7e96082e9246e2242b2f084ac6f44d52, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: bb8fea5394d9e6f8a83d18d41659dec5, type: 3}
@@ -5357,10 +5357,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 87bbbadff35c006088e284782bf2aa18, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 4843a7129a4235125a07ba7edd40ca73, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 564a3233128c963488486e61f17dd730, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: dc93799e3b8852a48bd18d73883960a8, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 28
     m_Data:
@@ -5511,6 +5511,7 @@ MonoBehaviour:
     type: 3}
   glassDebris: {fileID: 2125007379852074092, guid: 64a6af8f00ee6c74787a9da78fefb9c8,
     type: 3}
+  MAX_BULLET_HOLES: 200
 --- !u!1 &2025481543
 GameObject:
   m_ObjectHideFlags: 0

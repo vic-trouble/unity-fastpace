@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EffectsController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class EffectsController : MonoBehaviour
     public GameObject concreteDebris;
     public GameObject woodDebris;
     public GameObject glassDebris;
+
+    private List<GameObject> bulletHoles = new List<GameObject>();
+    public int MAX_BULLET_HOLES = 200;
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +85,13 @@ public class EffectsController : MonoBehaviour
     {
         var effect = GetBulletHoleEffect(material);
         if (effect) {
-            Spawn(effect, position);
+            while (bulletHoles.Count >= MAX_BULLET_HOLES) {
+                var bulletHole = bulletHoles[0];
+                bulletHoles.RemoveAt(0);
+                Destroy(bulletHole);
+            }
+
+            bulletHoles.Add(Spawn(effect, position));
         }
     }
 
@@ -105,5 +115,19 @@ public class EffectsController : MonoBehaviour
         if (effect) {
             Spawn(effect, position);
         }
+    }
+
+    public void RemoveBulletHoles(Vector2Int cellPosition)
+    {
+        List<GameObject> toRemove = new List<GameObject>();
+
+        var walls = GameObject.Find("Map/Buildings/Walls").GetComponent<Tilemap>();
+        foreach (var bulletHole in bulletHoles) {
+            if ((Vector2Int)walls.WorldToCell(bulletHole.transform.position) == cellPosition) {
+                toRemove.Add(bulletHole);
+            }
+        }
+
+        toRemove.ForEach(bulletHole => Destroy(bulletHole));
     }
 }

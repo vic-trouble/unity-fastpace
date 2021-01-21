@@ -37,10 +37,10 @@ public class WallsController : MonoBehaviour
         else
             tileDamage[tilePosition] = damage;
         if (tileDamage[tilePosition] > 20) {
-            Debug.Log("enough damage dealt");
             if (tilemap.GetTile(tilePosition) == destruction[0]) {
                 tilemap.SetTile(tilePosition, destruction[1]);
-                Debug.Log("tile replaced");
+                var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+                effectsController.RemoveBulletHoles((Vector2Int)tilePosition);
             }
         }
     }
