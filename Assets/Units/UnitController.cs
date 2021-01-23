@@ -90,41 +90,79 @@ public class UnitController: MonoBehaviour
         foreach (var collider in GetComponentsInChildren<Collider2D>())
             collider.enabled = true;
     }
+
+    protected struct HitPoint
+    {
+        public Vector2 point;
+        public GameObject gameObject;
+
+        public HitPoint(Vector2 point)
+        {
+            this.point = point;
+            this.gameObject = null;
+        }
+
+        public HitPoint(Vector2 point, GameObject gameObject)
+        {
+            this.point = point;
+            this.gameObject = gameObject;
+        }
+    }
+
     protected void Shoot(Vector3 targetPosition, float damage)
     {
+        // get all hits
         DisableColliders();
 
         Vector3 direction = targetPosition - transform.position;
-        var hit = Physics2D.Raycast(transform.position, direction, direction.magnitude);
+        List<HitPoint> hits = new List<HitPoint>();
+        foreach (var hit in Physics2D.RaycastAll(transform.position, direction)) {
+            hits.Add(new HitPoint(hit.point, hit.transform.gameObject));
+        }
+        hits.Add(new HitPoint(targetPosition));
 
         EnableColliders();
 
+        // bullet trail
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
         effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
-        if (hit) {
-            UnitController unit = hit.transform.gameObject.GetComponent<UnitController>();
-            if (unit) {
-                unit.TakeDamage(damage, this);
-                effectsController.SpawnSplatterEffect(hit.point, Material.Meat);
+
+        // process hits
+        foreach (var hit in hits) {
+            bool stopBullet = true;
+
+            if (hit.gameObject) {
+                UnitController unit = hit.gameObject.GetComponent<UnitController>();
+                if (unit) {
+                    unit.TakeDamage(damage, this);
+                    effectsController.SpawnSplatterEffect(hit.point, Material.Meat);
+                }
+                else {
+                    Vector2 probePoint = hit.point + (Vector2)direction.normalized * 0.05f;
+                    Material material = MaterialDetector.GuessMaterial(hit.gameObject, probePoint);
+                    Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
+                    effectsController.SpawnBulletHole(effectPos, material);
+                    effectsController.SpawnDebris(effectPos, material);
+
+                    float energyStopFactor;
+                    stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
+                    damage *= energyStopFactor;
+
+                    var wallsController = hit.gameObject.GetComponent<WallsController>();
+                    if (wallsController) {
+                        wallsController.DealDamage(effectPos, damage);
+                    }
+                }
+
+                if (stopBullet)
+                    break;
             }
             else {
-                Vector2 probePoint = hit.point + (Vector2)direction.normalized * 0.05f;
-                Material material = MaterialDetector.GuessMaterial(hit.transform.gameObject, probePoint);
-                Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
-                effectsController.SpawnBulletHole(effectPos, material);
-                effectsController.SpawnDebris(effectPos, material);
-
-                var wallsController = hit.transform.gameObject.GetComponent<WallsController>();
-                if (wallsController) {
-                    wallsController.DealDamage(effectPos, damage);
-                }
+                var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
+                string texture = tileMap.GetSprite(tileMap.WorldToCell(targetPosition)).texture.name;
+                Material material = MaterialDetector.GuessMaterialFromTexture(texture);
+                effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
             }
-        }
-        else {
-            var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
-            string texture = tileMap.GetSprite(tileMap.WorldToCell(targetPosition)).texture.name;
-            Material material = MaterialDetector.GuessMaterialFromTexture(texture);
-            effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
         }
 
         ammo--;
