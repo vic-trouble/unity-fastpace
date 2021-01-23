@@ -5176,9 +5176,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd5b9e0edeaf8a40b9f38ea5696a2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destruction:
-  - {fileID: 11400000, guid: 7e96082e9246e2242b2f084ac6f44d52, type: 2}
-  - {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
+  destructibleWalls:
+  - tiles:
+    - tile: {fileID: 11400000, guid: 7e96082e9246e2242b2f084ac6f44d52, type: 2}
+      damageLevel: 0
+    - tile: {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
+      damageLevel: 10
 --- !u!4 &1853454653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3129628645197339797, guid: 2734abcf5f35c0a2da92ce535bbc6961,
