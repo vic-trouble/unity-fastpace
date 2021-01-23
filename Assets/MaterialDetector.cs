@@ -37,4 +37,19 @@ public class MaterialDetector
             return Material.Glass;
         return Material.None;
     }
+
+    public static bool IsPenetrableByBullet(Material material, out float energyStopFactor)
+    {
+        switch (material) {
+            case Material.Wood:
+                energyStopFactor = 0.5f;
+                return true;
+            case Material.Glass:
+                energyStopFactor = 0.9f;
+                return true;
+            default:
+                energyStopFactor = 1;
+                return false;
+        }
+    }
 }
