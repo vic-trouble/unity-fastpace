@@ -16,18 +16,6 @@ public class WallsController : MonoBehaviour
 
     private Dictionary<Vector3Int, float> tileDamage = new Dictionary<Vector3Int, float>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DealDamage(Vector3 position, float damage)
     {
         var tilemap = GetComponent<Tilemap>();

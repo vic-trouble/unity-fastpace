@@ -74,10 +74,6 @@ public class BadGuyController : UnitController
             }
         }
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
-
-        // proper Y-sorting
-        var renderer = GetComponent<SpriteRenderer>();
-        renderer.sortingOrder = (int)(-transform.position.y * 10);
     }
 
     protected override void OnHit(UnitController attacker)
