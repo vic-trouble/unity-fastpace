@@ -3690,7 +3690,37 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 6, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 7, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 8, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 9, y: 1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -3972,7 +4002,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 13
+  - m_RefCount: 16
     m_Data: {fileID: 11400000, guid: 39cad6614a90f4564872565b6ef1e605, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3981,12 +4011,12 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 13
+  - m_RefCount: 16
     m_Data: {fileID: 21300000, guid: 6d7473a7a6cc746049f06dae4edbed35, type: 3}
   - m_RefCount: 20
     m_Data: {fileID: 21300000, guid: 5a856cea1c05d779c947a3906e384f11, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 33
+  - m_RefCount: 36
     m_Data:
       e00: 1
       e01: 0
@@ -4005,7 +4035,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 33
+  - m_RefCount: 36
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 0.9083718, g: 0.41574928, b: 0.43961167, a: 1}
@@ -5182,6 +5212,13 @@ MonoBehaviour:
       damageLevel: 0
     - tile: {fileID: 11400000, guid: 8820eb288201d6e499fc80cd9a7f5bac, type: 2}
       damageLevel: 10
+  - tiles:
+    - tile: {fileID: 11400000, guid: a1e46165aaab1670f85085b53873c89f, type: 2}
+      damageLevel: 0
+    - tile: {fileID: 11400000, guid: ae6cee017f67456429d4c355ac8516d1, type: 2}
+      damageLevel: 40
+    - tile: {fileID: 11400000, guid: 4a211e206dc94054d820487ab766f8d0, type: 2}
+      damageLevel: 200
 --- !u!4 &1853454653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3129628645197339797, guid: 2734abcf5f35c0a2da92ce535bbc6961,
