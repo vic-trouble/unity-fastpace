@@ -116,7 +116,7 @@ public class UnitController: MonoBehaviour
 
         Vector3 direction = targetPosition - transform.position;
         List<HitPoint> hits = new List<HitPoint>();
-        foreach (var hit in Physics2D.RaycastAll(transform.position, direction)) {
+        foreach (var hit in Physics2D.RaycastAll(transform.position, direction, direction.magnitude)) {
             hits.Add(new HitPoint(hit.point, hit.transform.gameObject));
         }
         hits.Add(new HitPoint(targetPosition));
