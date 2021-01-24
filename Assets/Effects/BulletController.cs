@@ -18,11 +18,13 @@ public class BulletController : MonoBehaviour
     {
         var body = GetComponent<Rigidbody2D>();
         body.AddForce((end - start).normalized * SPEED, ForceMode2D.Impulse);
+        transform.eulerAngles = new Vector3(0, 0, Vector3.SignedAngle(new Vector3(1, 0, 0), end - start, new Vector3(0, 0, 1)));
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         var trail = GetComponentInChildren(typeof(TrailRenderer)) as TrailRenderer;
         if (trail.positionCount > 1) {
             Vector2 trailStart = trail.GetPosition(0), trailEnd = trail.GetPosition(trail.positionCount - 1);
@@ -37,6 +39,10 @@ public class BulletController : MonoBehaviour
             if (endReached) {
                 Destroy(gameObject);
             }
+        }
+        */
+        if (Vector2.Angle((Vector2)transform.position - end, start - end) > 90) {
+            Destroy(gameObject);
         }
     }
 }
