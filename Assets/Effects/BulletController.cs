@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BulletController : MonoBehaviour
 {
     private Vector2 start, end;
+    private UnitController attacker;
+    private float damage;
 
     public float SPEED = 250;
 
-    public void Init(Vector2 start, Vector2 end)
+    public void Init(Vector2 start, Vector2 end, UnitController attacker, float damage)
     {
         this.start = start;
         this.end = end;
+        this.attacker = attacker;
+        this.damage = damage;
     }
 
     void Start()
@@ -42,7 +47,61 @@ public class BulletController : MonoBehaviour
         }
         */
         if (Vector2.Angle((Vector2)transform.position - end, start - end) > 90) {
+            Debug.Log("bullet hit the end");
+
+            var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
+            string texture = tileMap.GetSprite(tileMap.WorldToCell(transform.position)).texture.name;
+            Material material = MaterialDetector.GuessMaterialFromTexture(texture);
+
+            var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+            effectsController.SpawnSplatterEffect(transform.position, material != Material.None ? material : Material.Dirt);
+
             Destroy(gameObject);
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log("collision on " + collider.gameObject.name);
+
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+
+        UnitController unit = collider.gameObject.GetComponent<UnitController>();
+        if (!unit) {
+            unit = collider.transform.parent.gameObject.GetComponent<UnitController>(); // TODO: this is pretty ugly
+        }
+
+        if (unit == attacker) { // you can't shoot yourself
+            return;
+        }
+
+        if (unit) {
+            unit.TakeDamage(damage, attacker);
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+
+            Destroy(gameObject);
+        }
+        else {
+            Vector2 direction = end - start;
+            Vector2 probePoint = (Vector2)transform.position + (Vector2)direction.normalized * 0.05f;
+            Material material = MaterialDetector.GuessMaterial(collider.gameObject, probePoint);
+            Vector2 effectPos = (Vector2)transform.position + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
+            effectsController.SpawnBulletHole(effectPos, material);
+            effectsController.SpawnDebris(effectPos, material);
+
+            float energyStopFactor;
+            bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
+            this.damage *= energyStopFactor;
+
+            var wallsController = collider.gameObject.GetComponent<WallsController>();
+            if (wallsController) {
+                wallsController.DealDamage(effectPos, damage);
+            }
+
+            if (stopBullet) {
+                Destroy(gameObject);
+            }
+        }
+
     }
 }

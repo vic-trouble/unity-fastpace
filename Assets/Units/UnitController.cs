@@ -115,19 +115,21 @@ public class UnitController: MonoBehaviour
         DisableColliders();
 
         Vector3 direction = targetPosition - transform.position;
+        /*
         List<HitPoint> hits = new List<HitPoint>();
         foreach (var hit in Physics2D.RaycastAll(transform.position, direction, direction.magnitude)) {
             hits.Add(new HitPoint(hit.point, hit.transform.gameObject));
         }
         hits.Add(new HitPoint(targetPosition));
-
+        */
         EnableColliders();
 
         // bullet trail
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
+        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition, this, damage);
 
         // process hits
+        /*
         foreach (var hit in hits) {
             bool stopBullet = true;
 
@@ -164,6 +166,7 @@ public class UnitController: MonoBehaviour
                 effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
             }
         }
+        */
 
         ammo--;
         OnShoot();
@@ -179,7 +182,7 @@ public class UnitController: MonoBehaviour
     {
     }
 
-    protected void TakeDamage(float damage, UnitController attacker)
+    public void TakeDamage(float damage, UnitController attacker)
     {
         health -= damage;
 
