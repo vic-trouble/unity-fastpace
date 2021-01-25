@@ -47,19 +47,19 @@ public class BulletController : MonoBehaviour
         }
         */
         if (Vector2.Angle((Vector2)transform.position - end, start - end) > 90) {
-            Debug.Log("bullet hit the end");
-
             var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
-            string texture = tileMap.GetSprite(tileMap.WorldToCell(transform.position)).texture.name;
-            Material material = MaterialDetector.GuessMaterialFromTexture(texture);
-
-            var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-            effectsController.SpawnSplatterEffect(transform.position, material != Material.None ? material : Material.Dirt);
+            var sprite = tileMap.GetSprite(tileMap.WorldToCell(transform.position));
+            if (sprite) {
+                string texture = sprite.texture.name;
+                Material material = MaterialDetector.GuessMaterialFromTexture(texture);
+                var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+                effectsController.SpawnSplatterEffect(transform.position, material != Material.None ? material : Material.Dirt);
+            }
 
             Destroy(gameObject);
         }
     }
-
+/*
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("collision on " + collider.gameObject.name);
