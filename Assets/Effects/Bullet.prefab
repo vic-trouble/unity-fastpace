@@ -176,14 +176,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.01
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &63820060666885547
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed5633a3abef9bbf97822150af871fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SPEED: 10
+  SPEED: 0.1
 --- !u!212 &7543236127650630284
 SpriteRenderer:
   m_ObjectHideFlags: 0
