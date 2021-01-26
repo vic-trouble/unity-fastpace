@@ -27,7 +27,7 @@ public class BulletController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         /*
         var trail = GetComponentInChildren(typeof(TrailRenderer)) as TrailRenderer;
@@ -130,8 +130,9 @@ public class BulletController : MonoBehaviour
         }
         else {
             Vector2 direction = end - start;
-            Vector2 probePoint = (Vector2)transform.position + (Vector2)direction.normalized * 0.05f;
+            Vector2 probePoint = (Vector2)transform.position + (Vector2)direction.normalized * 0.1f;
             Material material = MaterialDetector.GuessMaterial(collision.gameObject, probePoint);
+            Debug.Log("hit material " + material);
             Vector2 effectPos = (Vector2)transform.position + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
             effectsController.SpawnBulletHole(effectPos, material);
             effectsController.SpawnDebris(effectPos, material);

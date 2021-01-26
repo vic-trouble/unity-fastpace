@@ -17,8 +17,8 @@ public class MaterialDetector
 {
     public static Material GuessMaterial(GameObject gameObject, Vector2 point)
     {
-        if (gameObject.tag == "wall") {
-            var tileMap = gameObject.GetComponent<Tilemap>();
+        var tileMap = gameObject.GetComponent<Tilemap>();
+        if (tileMap) {
             var sprite = tileMap.GetSprite(tileMap.WorldToCell(point));
             if (sprite)
                 return GuessMaterialFromTexture(sprite.texture.name);
