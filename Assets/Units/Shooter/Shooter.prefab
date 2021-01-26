@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2606811278537131882}
   - component: {fileID: 7276932570720039420}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: BulletCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,12 +168,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 4
   HEALTH: 10
+  AMMO: 6
   SHOT_SPEED: 0.4
   SHOT_POWER: 3
   ACCURACY: 0.5
-  ammoHUDBullet: {fileID: 4424124172002453460, guid: 22cbeb78f9152af4a9f676734d52e3d7,
-    type: 3}
-  ammoHUDContainer: {fileID: 0}
+  RELOAD_SPEED: 0.5
 --- !u!70 &7930558818156187890
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

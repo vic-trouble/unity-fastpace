@@ -104,4 +104,55 @@ public class BulletController : MonoBehaviour
         }
 
     }
+    */
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("collision on " + collision.gameObject.name);
+        GetComponent<Collider2D>().enabled = false;
+
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+
+        UnitController unit = collision.gameObject.GetComponent<UnitController>();
+        /*if (!unit) {
+            unit = collider.transform.parent.gameObject.GetComponent<UnitController>(); // TODO: this is pretty ugly
+        }*/
+
+        if (unit == attacker) { // you can't shoot yourself
+            return;
+        }
+
+        if (unit) {
+            unit.TakeDamage(damage, attacker);
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+
+            Destroy(gameObject);
+        }
+        else {
+            Vector2 direction = end - start;
+            Vector2 probePoint = (Vector2)transform.position + (Vector2)direction.normalized * 0.05f;
+            Material material = MaterialDetector.GuessMaterial(collision.gameObject, probePoint);
+            Vector2 effectPos = (Vector2)transform.position + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
+            effectsController.SpawnBulletHole(effectPos, material);
+            effectsController.SpawnDebris(effectPos, material);
+
+            float energyStopFactor;
+            bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
+            this.damage *= energyStopFactor;
+
+            var wallsController = collision.gameObject.GetComponent<WallsController>();
+            if (wallsController) {
+                wallsController.DealDamage(effectPos, damage);
+            }
+
+            if (stopBullet) {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        GetComponent<Collider2D>().enabled = true;
+    }
 }
