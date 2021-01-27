@@ -6,3 +6,4 @@ Build/
 .vs/
 .vsconfig
 UserSettings/
+*.sln
