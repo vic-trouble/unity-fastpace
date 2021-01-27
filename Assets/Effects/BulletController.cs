@@ -88,6 +88,7 @@ public class BulletController : MonoBehaviour
         }
 
         if (stopBullet) {
+            Debug.Log("stop bullet with hit count " + shotThru);
             Destroy(gameObject);
         }
         else {

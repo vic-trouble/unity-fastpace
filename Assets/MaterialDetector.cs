@@ -47,6 +47,9 @@ public class MaterialDetector
             case Material.Glass:
                 energyStopFactor = 0.9f;
                 return true;
+            case Material.None: // treat None as unobtrusive fly-through
+                energyStopFactor = 1;
+                return true;
             default:
                 energyStopFactor = 1;
                 return false;
