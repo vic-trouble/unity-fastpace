@@ -60,11 +60,11 @@ public class EffectsController : MonoBehaviour
         }
     }
 
-    public void SpawnBulletTrailEffect(Vector3 start, Vector3 end)
+    public void SpawnBulletTrailEffect(Vector3 start, Vector3 end, UnitController attacker, float damage)
     {
         start = start + (end - start).normalized * 0.25f;
         var trail = Spawn(bulletTrailEffect, start);
-        trail.GetComponent<BulletController>().Init(start, end);
+        trail.GetComponent<BulletController>().Init(start, end, attacker, damage);
     }
 
     private GameObject GetBulletHoleEffect(Material material)

@@ -17,8 +17,8 @@ public class MaterialDetector
 {
     public static Material GuessMaterial(GameObject gameObject, Vector2 point)
     {
-        if (gameObject.tag == "wall") {
-            var tileMap = gameObject.GetComponent<Tilemap>();
+        var tileMap = gameObject.GetComponent<Tilemap>();
+        if (tileMap) {
             var sprite = tileMap.GetSprite(tileMap.WorldToCell(point));
             if (sprite)
                 return GuessMaterialFromTexture(sprite.texture.name);
@@ -46,6 +46,9 @@ public class MaterialDetector
                 return true;
             case Material.Glass:
                 energyStopFactor = 0.9f;
+                return true;
+            case Material.None: // treat None as unobtrusive fly-through
+                energyStopFactor = 1;
                 return true;
             default:
                 energyStopFactor = 1;

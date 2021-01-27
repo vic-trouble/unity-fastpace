@@ -111,59 +111,9 @@ public class UnitController: MonoBehaviour
 
     protected void Shoot(Vector3 targetPosition, float damage)
     {
-        // get all hits
-        DisableColliders();
-
-        Vector3 direction = targetPosition - transform.position;
-        List<HitPoint> hits = new List<HitPoint>();
-        foreach (var hit in Physics2D.RaycastAll(transform.position, direction, direction.magnitude)) {
-            hits.Add(new HitPoint(hit.point, hit.transform.gameObject));
-        }
-        hits.Add(new HitPoint(targetPosition));
-
-        EnableColliders();
-
-        // bullet trail
+        // spawn bullet
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition);
-
-        // process hits
-        foreach (var hit in hits) {
-            bool stopBullet = true;
-
-            if (hit.gameObject) {
-                UnitController unit = hit.gameObject.GetComponent<UnitController>();
-                if (unit) {
-                    unit.TakeDamage(damage, this);
-                    effectsController.SpawnSplatterEffect(hit.point, Material.Meat);
-                }
-                else {
-                    Vector2 probePoint = hit.point + (Vector2)direction.normalized * 0.05f;
-                    Material material = MaterialDetector.GuessMaterial(hit.gameObject, probePoint);
-                    Vector2 effectPos = hit.point + (Vector2)direction.normalized * Random.Range(0.1f, 0.9f);
-                    effectsController.SpawnBulletHole(effectPos, material);
-                    effectsController.SpawnDebris(effectPos, material);
-
-                    float energyStopFactor;
-                    stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
-                    damage *= energyStopFactor;
-
-                    var wallsController = hit.gameObject.GetComponent<WallsController>();
-                    if (wallsController) {
-                        wallsController.DealDamage(effectPos, damage);
-                    }
-                }
-
-                if (stopBullet)
-                    break;
-            }
-            else {
-                var tileMap = GameObject.Find("Map/Ground").GetComponent<Tilemap>();
-                string texture = tileMap.GetSprite(tileMap.WorldToCell(targetPosition)).texture.name;
-                Material material = MaterialDetector.GuessMaterialFromTexture(texture);
-                effectsController.SpawnSplatterEffect(targetPosition, material != Material.None ? material : Material.Dirt);
-            }
-        }
+        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition, this, damage);
 
         ammo--;
         OnShoot();
@@ -179,7 +129,7 @@ public class UnitController: MonoBehaviour
     {
     }
 
-    protected void TakeDamage(float damage, UnitController attacker)
+    public void TakeDamage(float damage, UnitController attacker)
     {
         health -= damage;
 
