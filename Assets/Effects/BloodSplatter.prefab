@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5825624592002506551}
   - component: {fileID: 5825624592002506550}
   - component: {fileID: 2796594478831910319}
+  - component: {fileID: 1666732501016508403}
   m_Layer: 1
   m_Name: BloodSplatter
   m_TagString: Untagged
@@ -43,7 +44,7 @@ ParticleSystem:
   serializedVersion: 7
   lengthInSec: 0.05
   simulationSpeed: 1
-  stopAction: 2
+  stopAction: 3
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -106,7 +107,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4831,3 +4832,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingOrder: 1
   sortingLayerName: Units
+--- !u!114 &1666732501016508403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825624592002506549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339705f098bf1c044bf2b4b514a07b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodStain: {fileID: 8104498981641839927, guid: 3967ac7374d7f7446ad98f4bbd8ca268,
+    type: 3}

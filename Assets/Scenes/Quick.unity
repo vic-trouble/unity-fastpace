@@ -5361,7 +5361,10 @@ MonoBehaviour:
     type: 3}
   glassDebris: {fileID: 2125007379852074092, guid: 64a6af8f00ee6c74787a9da78fefb9c8,
     type: 3}
+  bloodStain: {fileID: 8104498981641839927, guid: 3967ac7374d7f7446ad98f4bbd8ca268,
+    type: 3}
   MAX_BULLET_HOLES: 200
+  MAX_BLOOD_STAINS: 50
 --- !u!1 &2025481543
 GameObject:
   m_ObjectHideFlags: 0
