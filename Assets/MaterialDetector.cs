@@ -23,6 +23,15 @@ public class MaterialDetector
             if (sprite)
                 return GuessMaterialFromTexture(sprite.texture.name);
         }
+
+        var spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        if (spriteRenderer) {
+             if (spriteRenderer.sprite) {
+                Debug.Log("texture " + spriteRenderer.sprite.texture.name);
+                return GuessMaterialFromTexture(spriteRenderer.sprite.texture.name);
+            }
+        }
+
         return Material.None;
     }
 

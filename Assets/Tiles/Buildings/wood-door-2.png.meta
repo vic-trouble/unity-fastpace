@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: bcb27566ececb5dd89f858b45eb91f9f
+guid: 36ef72627d9690521abd79245ae4cc73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3819483006106280322
-    second: door-1_0
+      213: -8303021339531488212
+    second: wood-door-2_0
   - first:
-      213: 875563157538790080
-    second: door-1_1
+      213: 7608063319285936766
+    second: wood-door-2_1
   - first:
-      213: 1246065626185250928
-    second: door-1_2
+      213: -3869682110652980976
+    second: wood-door-2_2
   - first:
-      213: 6203487918538374056
-    second: door-1_3
+      213: -4036123260682156019
+    second: wood-door-2_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -35,6 +35,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -66,9 +67,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -111,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: door-1_0
+      name: wood-door-2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,14 +129,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7ed46341787efac0800000000000000
-      internalID: -3819483006106280322
+      spriteID: c24dcbe351eb5cc80800000000000000
+      internalID: -8303021339531488212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door-1_1
+      name: wood-door-2_1
       rect:
         serializedVersion: 2
         x: 0
@@ -146,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cad4878d00a62c00800000000000000
-      internalID: 875563157538790080
+      spriteID: e72b7b69745459960800000000000000
+      internalID: 7608063319285936766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door-1_2
+      name: wood-door-2_2
       rect:
         serializedVersion: 2
         x: 0
@@ -167,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 078b897c51aea4110800000000000000
-      internalID: 1246065626185250928
+      spriteID: 01168d07f902c4ac0800000000000000
+      internalID: -3869682110652980976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door-1_3
+      name: wood-door-2_3
       rect:
         serializedVersion: 2
         x: 0
@@ -188,8 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ab38e8f467371650800000000000000
-      internalID: 6203487918538374056
+      spriteID: d084959574fccf7c0800000000000000
+      internalID: -4036123260682156019
       vertices: []
       indices: 
       edges: []

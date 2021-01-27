@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DoorController : MonoBehaviour
 {
@@ -32,6 +33,11 @@ public class DoorController : MonoBehaviour
                 open = false;
                 GetComponent<Animator>().SetBool("Open", true);
                 disableColliderTime = Time.fixedTime + 0.2f;
+                
+                var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+                var walls = GameObject.Find("Map/Buildings/Walls").GetComponent<Tilemap>();
+                Vector3Int tilePosition = walls.WorldToCell(transform.position);
+                effectsController.RemoveBulletHoles((Vector2Int)tilePosition);
             }
         }
     }
