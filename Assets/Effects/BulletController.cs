@@ -70,26 +70,33 @@ public class BulletController : MonoBehaviour
         Material material = MaterialDetector.GuessMaterial(wall, probePoint);
         Debug.Log("hit material " + material);
 
+        // debris splatter effect
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
         Vector2 effectPos = (Vector2)transform.position + direction * Random.Range(0.1f, 0.9f);
-        if (wall.tag == "wall") {
-            effectsController.SpawnBulletHole(effectPos, material);
-        }
         effectsController.SpawnDebris(effectPos, material);
 
+        // shall the bullet penetrate the wall?
         float energyStopFactor;
         bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
         this.damage *= energyStopFactor;
-
         if (!stopBullet) {
             stopBullet = ++shotThru >= MAX_SHOT_THRU;
         }
 
+        // hit the wall
         var wallsController = wall.GetComponent<WallsController>();
         if (wallsController) {
             wallsController.DealDamage(effectPos, damage);
         }
 
+        // bullet hole effect
+        if (Vector2.Angle(direction, Vector2.up) < 90 || !stopBullet) {
+            if (wall.tag == "wall") {
+                effectsController.SpawnBulletHole(effectPos, material);
+            }
+        }
+
+        // penetration or full stop
         if (stopBullet) {
             Debug.Log("stop bullet with hit count " + shotThru);
             Destroy(gameObject);
