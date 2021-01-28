@@ -37,7 +37,7 @@ public class BulletController : MonoBehaviour
         var hit = Physics2D.Raycast((Vector2)transform.position + velocity.normalized * 0.1f, velocity, velocity.magnitude * Time.fixedDeltaTime);
         if (hit) {
             GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.tag == "wall") {
+            if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
                 var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
                 foreach (var subhit in hits) {
                     if (subhit.collider.gameObject == hitObject) {
@@ -72,7 +72,9 @@ public class BulletController : MonoBehaviour
 
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
         Vector2 effectPos = (Vector2)transform.position + direction * Random.Range(0.1f, 0.9f);
-        effectsController.SpawnBulletHole(effectPos, material);
+        if (wall.tag == "wall") {
+            effectsController.SpawnBulletHole(effectPos, material);
+        }
         effectsController.SpawnDebris(effectPos, material);
 
         float energyStopFactor;

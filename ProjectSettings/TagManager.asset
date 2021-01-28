@@ -7,6 +7,7 @@ TagManager:
   - wall
   - Bullet
   - Critical
+  - SideWall
   layers:
   - Default
   - TransparentFX
