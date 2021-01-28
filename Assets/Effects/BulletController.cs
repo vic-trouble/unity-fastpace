@@ -70,9 +70,32 @@ public class BulletController : MonoBehaviour
         Material material = MaterialDetector.GuessMaterial(wall, probePoint);
         Debug.Log("hit material " + material);
 
+        // find effect position
+        Vector2 effectPos = (Vector2)transform.position;
+        var wallTilemap = wall.GetComponent<Tilemap>();
+        if (wallTilemap) {
+            Vector3Int hitCell = wallTilemap.WorldToCell(probePoint);
+            var cellSprite = wallTilemap.GetSprite(hitCell);
+            if (cellSprite) {
+                for (int i = -5; i < 5; i++) { // try 10 random adjustments
+                    Vector2 bestEffectPos = (Vector2)probePoint + direction * Random.Range(0.1f, 0.9f) * (i < 0 ? -1 : 1);
+                    Vector3Int cell = wallTilemap.WorldToCell(bestEffectPos);
+                    if (!cell.Equals(hitCell)) {
+                        continue;
+                    }
+
+                    Vector2 texturePos = (bestEffectPos - (Vector2)wallTilemap.CellToWorld(cell)) * cellSprite.pixelsPerUnit;
+                    Color hitColor = cellSprite.texture.GetPixel((int)texturePos.x, (int)texturePos.y);
+                    if (hitColor.a > 0.5) {
+                        effectPos = bestEffectPos;
+                        break;
+                    }
+                }
+            }
+        }
+
         // debris splatter effect
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        Vector2 effectPos = (Vector2)transform.position + direction * Random.Range(0.1f, 0.9f);
         effectsController.SpawnDebris(effectPos, material);
 
         // shall the bullet penetrate the wall?
