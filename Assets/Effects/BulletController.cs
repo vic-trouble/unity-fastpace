@@ -10,6 +10,7 @@ public class BulletController : MonoBehaviour
     private float damage;
 
     public float SPEED = 250;
+    public int CRITICAL_MULTIPLIER = 5;
 
     private int shotThru = 0;
     private int MAX_SHOT_THRU = 2;
@@ -97,12 +98,19 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void HitUnit(UnitController unit)
+    private void HitUnit(UnitController unit, bool isCritical)
     {
-        unit.TakeDamage(damage, attacker);
+        unit.TakeDamage(damage * (isCritical ? CRITICAL_MULTIPLIER : 1), attacker);
     
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+        if (isCritical) {
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+        }
+        else {
+            effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
+        }
 
         Destroy(gameObject);
     }
@@ -119,7 +127,7 @@ public class BulletController : MonoBehaviour
 
         UnitController unit = collision.gameObject.GetComponent<UnitController>();
         if (unit && unit != attacker) {
-            HitUnit(unit);
+            HitUnit(unit, collision.collider.tag == "Critical");
         }
     }
 }
