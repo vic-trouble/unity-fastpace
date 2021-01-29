@@ -147,10 +147,11 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnDrawGizmos()
+    void HitObject(DestructibleObject destructibleObject)
     {
-        Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
-        Gizmos.DrawLine((Vector2)transform.position + velocity.normalized * 0.1f, (Vector2)transform.position + velocity.normalized * 0.1f + velocity * Time.fixedDeltaTime);
+        destructibleObject.DealDamage(damage);
+
+        Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -160,6 +161,11 @@ public class BulletController : MonoBehaviour
         UnitController unit = collision.gameObject.GetComponent<UnitController>();
         if (unit && unit != attacker) {
             HitUnit(unit, collision.collider.tag == "Critical");
+        }
+
+        var destructibleObject = collision.gameObject.GetComponent<DestructibleObject>();
+        if (destructibleObject) {
+            HitObject(destructibleObject);
         }
     }
 }

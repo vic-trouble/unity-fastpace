@@ -51,6 +51,9 @@ TagManager:
   - name: Units
     uniqueID: 866605073
     locked: 0
+  - name: Tabletop
+    uniqueID: 3819014199
+    locked: 0
   - name: Roofs
     uniqueID: 1810862371
     locked: 0
