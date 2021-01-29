@@ -49,7 +49,7 @@ public class EffectsController : MonoBehaviour
         }
     }
 
-    private GameObject Spawn(GameObject effect, Vector3 position)
+    public GameObject Spawn(GameObject effect, Vector3 position)
     {
         return Spawn(effect, position, Quaternion.identity);
     }

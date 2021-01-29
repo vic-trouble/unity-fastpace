@@ -12,6 +12,7 @@ public struct DestructibleObjectPhase
 public class DestructibleObject : MonoBehaviour
 {
     public List<DestructibleObjectPhase> destructionPhases;
+    public GameObject destructionEffect;
 
     private float curDamage = 0;
 
@@ -30,6 +31,10 @@ public class DestructibleObject : MonoBehaviour
         }
         if (newSprite && !SameSprite(newSprite, curSprite)) {
             spriteRenderer.sprite = newSprite;
+            if (destructionEffect) {
+                var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+                effectsController.Spawn(destructionEffect, transform.position);
+            }
         }
 
     }
