@@ -18,6 +18,8 @@ public class BadGuyController : UnitController
     public float SHOT_SPEED = 0.5f;
     public float SHOT_POWER = 1;
 
+    public float AGGRAVATION_RADIUS = 3;
+
     private BadGuyState state = BadGuyState.Idle;
     private UnitController target;
 
@@ -76,11 +78,26 @@ public class BadGuyController : UnitController
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
     }
 
-    protected override void OnHit(UnitController attacker)
+    public void Aggravate(UnitController attacker, bool aggravateInArea)
     {
         if (state == BadGuyState.Idle)
             state = BadGuyState.Aggravated;
         target = attacker;
+
+        if (aggravateInArea) {
+            var badGuys = FindObjectsOfType<BadGuyController>();
+            foreach (var badGuy in badGuys) {
+                float distance = (badGuy.transform.position - transform.position).magnitude;
+                if (badGuy != this && badGuy.health > 0 && distance < AGGRAVATION_RADIUS) {
+                    badGuy.Aggravate(attacker, false);
+                }
+            }
+        }
+    }
+
+    protected override void OnHit(UnitController attacker)
+    {
+        Aggravate(attacker, true);
     }
 
     protected override void OnDie()
