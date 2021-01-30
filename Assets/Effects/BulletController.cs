@@ -10,6 +10,7 @@ public class BulletController : MonoBehaviour
     private float damage;
 
     public float SPEED = 250;
+    public float MIN_SPEED = 3;
     public int CRITICAL_MULTIPLIER = 5;
 
     private int shotThru = 0;
@@ -33,6 +34,11 @@ public class BulletController : MonoBehaviour
     void FixedUpdate()
     {
         PrePenetrate();
+
+        // destroy stopped bullets
+        if (GetComponent<Rigidbody2D>().velocity.magnitude < MIN_SPEED) {
+            Destroy(gameObject);
+        }
 
         // reached the target
         if (Vector2.Angle((Vector2)transform.position - end, start - end) > 90) {
