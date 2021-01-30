@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Critical
   - SideWall
+  - Penetrable
   layers:
   - Default
   - TransparentFX

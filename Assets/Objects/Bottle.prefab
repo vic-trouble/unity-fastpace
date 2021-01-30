@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3410598224080194177}
   m_Layer: 9
   m_Name: Bottle
-  m_TagString: Untagged
+  m_TagString: Penetrable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

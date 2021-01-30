@@ -24,13 +24,21 @@ public class DestructibleObject : MonoBehaviour
         Sprite curSprite = spriteRenderer.sprite;
 
         Sprite newSprite = null;
+        bool oblitirated = false;
         foreach (var phase in destructionPhases) {
+            oblitirated = false;
             if (curDamage >= phase.damageLevel) {
                 newSprite = phase.sprite;
+                oblitirated = true;
             }
         }
         if (newSprite && !SameSprite(newSprite, curSprite)) {
             spriteRenderer.sprite = newSprite;
+
+            if (oblitirated) {
+                GetComponent<Collider2D>().enabled = false;
+            }
+
             if (destructionEffect) {
                 var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
                 effectsController.Spawn(destructionEffect, transform.position);

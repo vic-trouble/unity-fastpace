@@ -32,21 +32,7 @@ public class BulletController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // speculative collision - for penetrating materials
-        Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
-        var hit = Physics2D.Raycast((Vector2)transform.position + velocity.normalized * 0.1f, velocity, velocity.magnitude * Time.fixedDeltaTime);
-        if (hit) {
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
-                var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
-                foreach (var subhit in hits) {
-                    if (subhit.collider.gameObject == hitObject) {
-                        HitWall(hitObject, hit.point, subhit.point);
-                        break;
-                    }
-                }
-            }
-        }
+        PrePenetrate();
 
         // reached the target
         if (Vector2.Angle((Vector2)transform.position - end, start - end) > 90) {
@@ -98,7 +84,53 @@ public class BulletController : MonoBehaviour
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
         effectsController.SpawnDebris(effectPos, material);
 
-        // shall the bullet penetrate the wall?
+        // hit the wall
+        var wallsController = wall.GetComponent<WallsController>();
+        if (wallsController) {
+            wallsController.DealDamage(effectPos, damage);
+        }
+
+        // penetration or full stop
+        bool penetrated = Penetrate(material, enterPoint, exitPoint);
+
+        // bullet hole effect
+        if (Vector2.Angle(direction, Vector2.up) < 90 || penetrated) {
+            if (wall.tag == "wall") {
+                effectsController.SpawnBulletHole(effectPos, material);
+            }
+        }
+    }
+
+    private void PrePenetrate()
+    {
+        // speculative collision - for penetrating materials
+        Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
+        var hit = Physics2D.Raycast((Vector2)transform.position + velocity.normalized * 0.1f, velocity, velocity.magnitude * Time.fixedDeltaTime);
+        if (hit) {
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
+                var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
+                foreach (var subhit in hits) {
+                    if (subhit.collider.gameObject == hitObject) {
+                        HitWall(hitObject, hit.point, subhit.point);
+                        break;
+                    }
+                }
+            }
+            else if (hitObject.tag == "Penetrable") {
+                var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
+                foreach (var subhit in hits) {
+                    if (subhit.collider.gameObject == hitObject) {
+                        HitObject(hitObject.GetComponent<DestructibleObject>(), hit.point, subhit.point);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private bool Penetrate(Material material, Vector2 enterPoint, Vector2 exitPoint)
+    {
         float energyStopFactor;
         bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
         this.damage *= energyStopFactor;
@@ -106,28 +138,17 @@ public class BulletController : MonoBehaviour
             stopBullet = ++shotThru >= MAX_SHOT_THRU;
         }
 
-        // hit the wall
-        var wallsController = wall.GetComponent<WallsController>();
-        if (wallsController) {
-            wallsController.DealDamage(effectPos, damage);
-        }
-
-        // bullet hole effect
-        if (Vector2.Angle(direction, Vector2.up) < 90 || !stopBullet) {
-            if (wall.tag == "wall") {
-                effectsController.SpawnBulletHole(effectPos, material);
-            }
-        }
-
-        // penetration or full stop
         if (stopBullet) {
             Debug.Log("stop bullet with hit count " + shotThru);
             Destroy(gameObject);
         }
         else {
-            Debug.Log("teleport wall");
+            Vector2 direction = (end - start).normalized;
             transform.position = exitPoint + direction * 0.1f;
+            PrePenetrate();
         }
+
+        return !stopBullet;
     }
 
     private void HitUnit(UnitController unit, bool isCritical)
@@ -147,11 +168,15 @@ public class BulletController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void HitObject(DestructibleObject destructibleObject)
+    void HitObject(DestructibleObject destructibleObject, Vector2 enterPoint, Vector2 exitPoint)
     {
         destructibleObject.DealDamage(damage);
 
-        Destroy(gameObject);
+        Vector2 probePoint = (enterPoint + exitPoint) / 2;
+        Material material = MaterialDetector.GuessMaterial(destructibleObject.gameObject, probePoint);
+        Debug.Log("hit material " + material);
+
+        Penetrate(material, enterPoint, exitPoint);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -162,10 +187,11 @@ public class BulletController : MonoBehaviour
         if (unit && unit != attacker) {
             HitUnit(unit, collision.collider.tag == "Critical");
         }
-
+        /*
         var destructibleObject = collision.gameObject.GetComponent<DestructibleObject>();
         if (destructibleObject) {
             HitObject(destructibleObject);
         }
+        */
     }
 }
