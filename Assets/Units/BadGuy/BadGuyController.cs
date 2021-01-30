@@ -55,7 +55,12 @@ public class BadGuyController : UnitController
                 state = BadGuyState.Idle;
             }
             else {
-                Vector2 aimPosition = (Vector2)target.transform.position + Vector2.up / 2 + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY));
+                Vector2 aimPosition = (Vector2)target.transform.position + Vector2.up / 2;
+
+                float inaccuracyFactor = 1 - ACCURACY;
+                Vector2 inaccuracy = new Vector2(Random.Range(-inaccuracyFactor, inaccuracyFactor), Random.Range(-inaccuracyFactor, inaccuracyFactor)) / 2;
+                aimPosition += inaccuracy * (aimPosition - (Vector2)transform.position).magnitude;
+
                 Vector2 delta = aimPosition - (Vector2)transform.position;
                 if (delta.magnitude < SHOOTING_RANGE && Time.fixedTime >= nextShotTime) {
                     animation = "Shoot";

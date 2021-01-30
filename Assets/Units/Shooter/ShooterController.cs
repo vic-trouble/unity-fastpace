@@ -83,7 +83,10 @@ public class ShooterController : UnitController
             if (ammo > 0) {
                 animation = "Shoot";
                 forceAnimation = true;
-                Shoot(aimPosition + new Vector2(Random.Range(-ACCURACY, ACCURACY), Random.Range(-ACCURACY, ACCURACY)), SHOT_POWER);
+                float inaccuracyFactor = 1 - ACCURACY;
+                Vector2 inaccuracy = new Vector2(Random.Range(-inaccuracyFactor, inaccuracyFactor), Random.Range(-inaccuracyFactor, inaccuracyFactor)) / 2;
+                aimPosition += inaccuracy * (aimPosition - (Vector2)transform.position).magnitude;
+                Shoot(aimPosition, SHOT_POWER);
                 nextShotTime = Time.fixedTime + SHOT_SPEED;
             }
             else {
