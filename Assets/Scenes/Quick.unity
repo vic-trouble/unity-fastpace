@@ -49871,8 +49871,11 @@ MonoBehaviour:
     type: 3}
   explosion: {fileID: 7030232356445063089, guid: 518812fae2b0f4a40b1f1ca833d1627c,
     type: 3}
+  blastMark: {fileID: 8104498981641839927, guid: 75f2b244a924f8b4d8244a2d8b64f66a,
+    type: 3}
   MAX_BULLET_HOLES: 200
   MAX_BLOOD_STAINS: 50
+  MAX_BLAST_MARKS: 50
 --- !u!4 &1992351255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6295084328271480595, guid: 9abd4277c26f5c249b6a79fe6b582f52,

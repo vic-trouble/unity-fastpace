@@ -46,6 +46,9 @@ public class ExplosionController : MonoBehaviour
                 }
             }
         }
+
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+        effectsController.SpawnBlastMark(transform.position);
     }
 
     // Update is called once per frame

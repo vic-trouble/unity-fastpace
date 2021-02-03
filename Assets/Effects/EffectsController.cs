@@ -20,12 +20,16 @@ public class EffectsController : MonoBehaviour
     public GameObject bloodStain;
 
     public GameObject explosion;
+    public GameObject blastMark;
 
     private List<GameObject> bulletHoles = new List<GameObject>();
     public int MAX_BULLET_HOLES = 200;
 
     private List<GameObject> bloodStains = new List<GameObject>();
     public int MAX_BLOOD_STAINS = 50;
+
+    private List<GameObject> blastMarks = new List<GameObject>();
+    public int MAX_BLAST_MARKS = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -145,7 +149,7 @@ public class EffectsController : MonoBehaviour
 
     public void SpawnBloodStain(Vector3 position, Quaternion rotation)
     {
-        while (bloodStains.Count >= MAX_BULLET_HOLES) {
+        while (bloodStains.Count >= MAX_BLOOD_STAINS) {
             var bloodStain = bloodStains[0];
             bloodStains.RemoveAt(0);
             Destroy(bloodStain);
@@ -158,4 +162,15 @@ public class EffectsController : MonoBehaviour
     {
         Spawn(explosion, position);
     }
+
+    public void SpawnBlastMark(Vector3 position)
+    {
+        while (blastMarks.Count >= MAX_BLAST_MARKS) {
+            var blastMark = blastMarks[0];
+            blastMarks.RemoveAt(0);
+            Destroy(blastMark);
+        }
+
+        blastMarks.Add(Spawn(blastMark, position));
+    }    
 }
