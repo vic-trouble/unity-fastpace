@@ -49869,6 +49869,8 @@ MonoBehaviour:
     type: 3}
   bloodStain: {fileID: 8104498981641839927, guid: 3967ac7374d7f7446ad98f4bbd8ca268,
     type: 3}
+  explosion: {fileID: 7030232356445063089, guid: 518812fae2b0f4a40b1f1ca833d1627c,
+    type: 3}
   MAX_BULLET_HOLES: 200
   MAX_BLOOD_STAINS: 50
 --- !u!4 &1992351255 stripped

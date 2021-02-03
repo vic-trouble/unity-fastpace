@@ -6,11 +6,14 @@ public class ShooterController : UnitController
 {
     private float nextShotTime = 0;
     private float nextReloadTime = 0;   // TODO: make some timer?
+    private float nextGrenadeTime = 0;
 
     public float SHOT_SPEED = 0.25f;
     public float SHOT_POWER = 3;
     public float ACCURACY = 0.5f;
     public float RELOAD_SPEED = 0.5f;
+
+    public float THROW_GRENADE_COOLDOWN = 2;
 
     private bool isDead = false;
 
@@ -97,6 +100,10 @@ public class ShooterController : UnitController
             animation = "Shoot";
             return; // NB!
         }
+        else if (Input.GetButton("Fire2") && Time.fixedTime >= nextGrenadeTime) {
+            ThrowGrenade(aimPosition);
+            nextGrenadeTime = Time.fixedTime + THROW_GRENADE_COOLDOWN;
+        }
 
         if (Input.GetKey(KeyCode.R) && ammo < AMMO) {
             StartReload();
@@ -114,5 +121,11 @@ public class ShooterController : UnitController
 
         // animate
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
+    }
+
+    private void ThrowGrenade(Vector2 position)
+    {
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+        effectsController.SpawnExplosion(position);
     }
 }

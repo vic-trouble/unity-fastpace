@@ -171,8 +171,9 @@ MonoBehaviour:
   AMMO: 6
   SHOT_SPEED: 0.4
   SHOT_POWER: 3
-  ACCURACY: 0.5
+  ACCURACY: 0.9
   RELOAD_SPEED: 0.5
+  THROW_GRENADE_COOLDOWN: 1
 --- !u!70 &7930558818156187890
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

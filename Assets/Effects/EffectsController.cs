@@ -19,6 +19,8 @@ public class EffectsController : MonoBehaviour
 
     public GameObject bloodStain;
 
+    public GameObject explosion;
+
     private List<GameObject> bulletHoles = new List<GameObject>();
     public int MAX_BULLET_HOLES = 200;
 
@@ -150,5 +152,10 @@ public class EffectsController : MonoBehaviour
         }
 
         bloodStains.Add(Spawn(bloodStain, position, rotation));
+    }
+
+    public void SpawnExplosion(Vector2 position)
+    {
+        Spawn(explosion, position);
     }
 }
