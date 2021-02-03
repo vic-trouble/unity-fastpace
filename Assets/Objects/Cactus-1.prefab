@@ -113,7 +113,8 @@ MonoBehaviour:
   - sprite: {fileID: 2553433026265105477, guid: 28854058be4a18b47b50523901beb4ed,
       type: 3}
     damageLevel: 15
-  destructionEffect: {fileID: 0}
+  destructionEffect: {fileID: 6378504212807827843, guid: 48d7cc0cb80aadb41bbf2c505e8c565a,
+    type: 3}
 --- !u!70 &5127864050136739426
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

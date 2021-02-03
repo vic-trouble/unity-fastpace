@@ -130,5 +130,5 @@ MonoBehaviour:
   - sprite: {fileID: -2625935166375912065, guid: 5dc977316ce167942972407b05817e48,
       type: 3}
     damageLevel: 4
-  destructionEffect: {fileID: 3098857356581476211, guid: 48d7cc0cb80aadb41bbf2c505e8c565a,
+  destructionEffect: {fileID: 3098857356581476211, guid: 2f35b40683e4e2f47abfd8d31c1422f6,
     type: 3}
