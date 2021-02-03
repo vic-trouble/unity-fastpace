@@ -35,6 +35,17 @@ public class ExplosionController : MonoBehaviour
             }
         }
 
+        foreach (var wallsController in FindObjectsOfType<WallsController>()) {
+            for (float x = -BLAST_RADIUS; x <= BLAST_RADIUS; x += 0.5f) {
+                for (float y = -BLAST_RADIUS; y <= BLAST_RADIUS; y += 0.5f) {
+                    Vector3 pos = transform.position + new Vector3(x, y, 0);
+                    float damage = CalcDamage(pos) / 2;
+                    if (damage > 0) {
+                        wallsController.DealDamage(pos, damage);
+                    }
+                }
+            }
+        }
     }
 
     // Update is called once per frame
