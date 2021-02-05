@@ -39799,7 +39799,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -50806,6 +50806,12 @@ PrefabInstance:
       propertyPath: ACCURACY
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 8116044793240305798, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: dynamite
+      value: 
+      objectReference: {fileID: 1913714572647094695, guid: 47bf491b5ebc1af49a8c0cce703b4a00,
+        type: 3}
     - target: {fileID: 8116044793240305798, guid: a3301d8d245b8e3488c6ae6390ea63c2,
         type: 3}
       propertyPath: ammoHUDBullet

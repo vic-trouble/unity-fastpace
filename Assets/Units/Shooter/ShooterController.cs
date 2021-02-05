@@ -13,6 +13,7 @@ public class ShooterController : UnitController
     public float ACCURACY = 0.5f;
     public float RELOAD_SPEED = 0.5f;
 
+    public GameObject dynamite;
     public float THROW_GRENADE_COOLDOWN = 2;
 
     private bool isDead = false;
@@ -125,7 +126,9 @@ public class ShooterController : UnitController
 
     private void ThrowGrenade(Vector2 position)
     {
-        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        effectsController.SpawnExplosion(position);
+        Vector3 start = transform.position + new Vector3(0, 0.5f, 0);
+        var projectile = Instantiate(dynamite, start, Quaternion.identity);
+        var dynamiteController = projectile.GetComponent<DynamiteStickController>();
+        dynamiteController.Init(start, position);
     }
 }
