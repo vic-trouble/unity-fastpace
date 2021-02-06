@@ -7,6 +7,9 @@ public class ExplosionController : MonoBehaviour
     public float BLAST_RADIUS = 5;
     public float BLAST_POWER = 100;
 
+    public float SCREEN_SHAKE_TIME = 0.5f;
+    public float SCREEN_SHAKE_MAGNITUDE = 0.5f;
+
     private float CalcDamage(Vector2 position)
     {
         float distance = (position - (Vector2)transform.position).magnitude;
@@ -49,6 +52,9 @@ public class ExplosionController : MonoBehaviour
 
         var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
         effectsController.SpawnBlastMark(transform.position);
+
+        var camera = FindObjectOfType<CameraController>();
+        camera.ShakeScreen(SCREEN_SHAKE_TIME, SCREEN_SHAKE_MAGNITUDE);
     }
 
     // Update is called once per frame
