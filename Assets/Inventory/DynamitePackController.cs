@@ -15,4 +15,11 @@ public class DynamitePackController : MonoBehaviour
     {
         
     }
+
+    public void DealDamage()
+    {
+        var effectsController = FindObjectOfType<EffectsController>();
+        effectsController.SpawnExplosion(transform.position);
+        Destroy(gameObject);
+    }
 }

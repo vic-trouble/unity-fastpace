@@ -18,11 +18,14 @@ public class ShooterController : UnitController
 
     private bool isDead = false;
 
+    public int ammoGrenades = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         Init(GetComponent<Animator>());
         UpdateHUDAmmo();
+        UpdateHUDGrenades();
     }
 
     protected override void OnDie()
@@ -48,6 +51,12 @@ public class ShooterController : UnitController
     protected override void OnShoot()
     {
         UpdateHUDAmmo();
+    }
+
+    private void UpdateHUDGrenades()
+    {
+        var grenadesBar = GameObject.Find("GrenadesBar").GetComponent<GrenadesBarController>();
+        grenadesBar.SetGrenades(ammoGrenades);
     }
 
     private void StartReload()
@@ -102,8 +111,10 @@ public class ShooterController : UnitController
             return; // NB!
         }
         else if (Input.GetButton("Fire2") && Time.fixedTime >= nextGrenadeTime) {
-            ThrowGrenade(aimPosition);
-            nextGrenadeTime = Time.fixedTime + THROW_GRENADE_COOLDOWN;
+            if (ammoGrenades > 0) {
+                ThrowGrenade(aimPosition);
+                nextGrenadeTime = Time.fixedTime + THROW_GRENADE_COOLDOWN;
+            }
         }
 
         if (Input.GetKey(KeyCode.R) && ammo < AMMO) {
@@ -130,5 +141,14 @@ public class ShooterController : UnitController
         var projectile = Instantiate(dynamite, start, Quaternion.identity);
         var dynamiteController = projectile.GetComponent<DynamiteStickController>();
         dynamiteController.Init(start, position);
+
+        ammoGrenades--;
+        UpdateHUDGrenades();
+    }
+
+    public void PickUpGrenades(int numGrenades)
+    {
+        ammoGrenades += numGrenades;
+        UpdateHUDGrenades();
     }
 }

@@ -193,6 +193,11 @@ public class BulletController : MonoBehaviour
         if (unit && unit != attacker) {
             HitUnit(unit, collision.collider.tag == "Critical");
         }
+
+        var dynamitePack = collision.gameObject.GetComponent<DynamitePackController>();
+        if (dynamitePack) {
+            dynamitePack.DealDamage();
+        }
         /*
         var destructibleObject = collision.gameObject.GetComponent<DestructibleObject>();
         if (destructibleObject) {
