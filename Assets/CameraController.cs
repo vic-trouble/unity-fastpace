@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     public Texture2D aimCursor;
 
     public GameObject followUnit;
+    public float LERP_FACTOR = 40;
 
     private float shakeStopTime = 0;
     private float shakeMagnitude = 0;
@@ -20,11 +21,14 @@ public class CameraController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        int lerpFactor = 40;
-        float x = Mathf.Lerp(transform.position.x, followUnit.transform.position.x, Time.deltaTime * lerpFactor);
-        float y = Mathf.Lerp(transform.position.y, followUnit.transform.position.y, Time.deltaTime * lerpFactor);
+        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 aimPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector2 followPosition = (aimPosition + (Vector2)followUnit.transform.position) / 2;
+
+        float x = Mathf.Lerp(transform.position.x, followPosition.x, Time.fixedDeltaTime * LERP_FACTOR);
+        float y = Mathf.Lerp(transform.position.y, followPosition.y, Time.fixedDeltaTime * LERP_FACTOR);
 
         Vector3 shake = Time.fixedTime > shakeStopTime ? Vector3.zero : new Vector3(Random.Range(-shakeMagnitude, shakeMagnitude), Random.Range(-shakeMagnitude, shakeMagnitude), 0);
         transform.position = new Vector3(x, y, transform.position.z) + shake; // Camera follows the player with specified offset position

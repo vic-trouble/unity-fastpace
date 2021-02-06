@@ -39849,6 +39849,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimCursor: {fileID: 2800000, guid: 7e856ea8ccc7cd0df9432ac123d01de4, type: 3}
   followUnit: {fileID: 1965415636}
+  MIN_FOLLOW_RADIUS: 3
+  MAX_FOLLOW_RADIUS: 5
+  LERP_FACTOR: 10
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
