@@ -114,24 +114,30 @@ public class BulletController : MonoBehaviour
     {
         // speculative collision - for penetrating materials
         Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
-        var hit = Physics2D.Raycast((Vector2)transform.position + velocity.normalized * 0.1f, velocity, velocity.magnitude * Time.fixedDeltaTime);
-        if (hit) {
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
-                var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
-                foreach (var subhit in hits) {
-                    if (subhit.collider.gameObject == hitObject) {
-                        HitWall(hitObject, hit.point, subhit.point);
-                        break;
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = false;
+        int hitsCount = Physics2D.Raycast((Vector2)transform.position + velocity.normalized * 0.1f, velocity, filter, hits, velocity.magnitude * Time.fixedDeltaTime);
+        if (hitsCount > 0) {
+            foreach (var hit in hits) {
+                GameObject hitObject = hit.collider.gameObject;
+                Debug.Log("Prepenetrate " + hitObject);
+                if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
+                    var subhits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
+                    foreach (var subhit in subhits) {
+                        if (subhit.collider.gameObject == hitObject) {
+                            HitWall(hitObject, hit.point, subhit.point);
+                            break;
+                        }
                     }
                 }
-            }
-            else if (hitObject.tag == "Penetrable") {
-                var hits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
-                foreach (var subhit in hits) {
-                    if (subhit.collider.gameObject == hitObject) {
-                        HitObject(hitObject.GetComponent<DestructibleObject>(), hit.point, subhit.point);
-                        break;
+                else if (hitObject.tag == "Penetrable") {
+                    var subhits = Physics2D.RaycastAll(hit.point + velocity.normalized * 2, -velocity, 2);
+                    foreach (var subhit in subhits) {
+                        if (subhit.collider.gameObject == hitObject) {
+                            HitObject(hitObject.GetComponent<DestructibleObject>(), hit.point, subhit.point);
+                            break;
+                        }
                     }
                 }
             }
