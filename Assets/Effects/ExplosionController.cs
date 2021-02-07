@@ -10,6 +10,8 @@ public class ExplosionController : MonoBehaviour
     public float SCREEN_SHAKE_TIME = 0.5f;
     public float SCREEN_SHAKE_MAGNITUDE = 0.5f;
 
+    private UnitController attacker;
+
     private float CalcDamage(Vector2 position)
     {
         float distance = (position - (Vector2)transform.position).magnitude;
@@ -17,6 +19,11 @@ public class ExplosionController : MonoBehaviour
             return 0;
 
         return (1 - distance / BLAST_RADIUS) * BLAST_POWER;
+    }
+
+    public void Init(UnitController attacker)
+    {
+        this.attacker = attacker;
     }
 
     // Start is called before the first frame update
@@ -33,7 +40,7 @@ public class ExplosionController : MonoBehaviour
         foreach (var unit in FindObjectsOfType<UnitController>()) {
             float damage = CalcDamage(unit.gameObject.transform.position);
             if (damage > 0) {
-                unit.TakeDamage(damage, null);
+                unit.TakeDamage(damage, attacker);
                 Debug.Log("Dealt " + damage + " damage to " + unit);
             }
         }
@@ -47,6 +54,13 @@ public class ExplosionController : MonoBehaviour
                         wallsController.DealDamage(pos, damage);
                     }
                 }
+            }
+        }
+
+        foreach (var dynamitePack in FindObjectsOfType<DynamitePackController>()) {
+            float damage = CalcDamage(dynamitePack.transform.position);
+            if (damage > 0) {
+                dynamitePack.DealDamage(attacker);
             }
         }
 

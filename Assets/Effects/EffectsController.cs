@@ -158,9 +158,10 @@ public class EffectsController : MonoBehaviour
         bloodStains.Add(Spawn(bloodStain, position, rotation));
     }
 
-    public void SpawnExplosion(Vector2 position)
+    public void SpawnExplosion(Vector2 position, UnitController attacker)
     {
-        Spawn(explosion, position);
+        var blast = Spawn(explosion, position);
+        blast.GetComponent<ExplosionController>().Init(attacker);
     }
 
     public void SpawnBlastMark(Vector3 position)

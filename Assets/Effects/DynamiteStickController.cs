@@ -14,10 +14,13 @@ public class DynamiteStickController : MonoBehaviour
 
     private Vector2 start, end;
 
-    public void Init(Vector2 start, Vector2 end)
+    private UnitController attacker;
+
+    public void Init(Vector2 start, Vector2 end, UnitController attacker)
     {
         this.start = start;
         this.end = end;
+        this.attacker = attacker;
     }
 
     // Start is called before the first frame update
@@ -35,7 +38,7 @@ public class DynamiteStickController : MonoBehaviour
 
         if (Time.fixedTime >= boomTime) {
             var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-            effectsController.SpawnExplosion(transform.position);
+            effectsController.SpawnExplosion(transform.position, attacker);
             Destroy(gameObject);
         }
     }

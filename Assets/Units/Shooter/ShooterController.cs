@@ -140,7 +140,7 @@ public class ShooterController : UnitController
         Vector3 start = transform.position + new Vector3(0, 0.5f, 0);
         var projectile = Instantiate(dynamite, start, Quaternion.identity);
         var dynamiteController = projectile.GetComponent<DynamiteStickController>();
-        dynamiteController.Init(start, position);
+        dynamiteController.Init(start, position, this);
 
         ammoGrenades--;
         UpdateHUDGrenades();

@@ -202,7 +202,7 @@ public class BulletController : MonoBehaviour
 
         var dynamitePack = collision.gameObject.GetComponent<DynamitePackController>();
         if (dynamitePack) {
-            dynamitePack.DealDamage();
+            dynamitePack.DealDamage(attacker);
             Destroy(gameObject);
         }
     }

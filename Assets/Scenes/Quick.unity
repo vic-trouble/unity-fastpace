@@ -58198,7 +58198,7 @@ PrefabInstance:
     - target: {fileID: 8116044793240305798, guid: a3301d8d245b8e3488c6ae6390ea63c2,
         type: 3}
       propertyPath: ammoGrenades
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8116044793240305798, guid: a3301d8d245b8e3488c6ae6390ea63c2,
         type: 3}

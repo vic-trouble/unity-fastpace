@@ -175,7 +175,7 @@ MonoBehaviour:
   RELOAD_SPEED: 0.5
   dynamite: {fileID: 0}
   THROW_GRENADE_COOLDOWN: 1
-  ammoGrenades: 0
+  ammoGrenades: 2
 --- !u!70 &7930558818156187890
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

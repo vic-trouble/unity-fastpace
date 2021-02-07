@@ -16,10 +16,10 @@ public class DynamitePackController : MonoBehaviour
         
     }
 
-    public void DealDamage()
+    public void DealDamage(UnitController attacker)
     {
         var effectsController = FindObjectOfType<EffectsController>();
-        effectsController.SpawnExplosion(transform.position);
+        effectsController.SpawnExplosion(transform.position, attacker);
         Destroy(gameObject);
     }
 }
