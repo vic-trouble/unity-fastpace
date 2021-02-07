@@ -85,6 +85,9 @@ public class BadGuyController : UnitController
 
     public void Aggravate(UnitController attacker, bool aggravateInArea)
     {
+        if (state == BadGuyState.Dead)
+            return;
+            
         if (state == BadGuyState.Idle)
             state = BadGuyState.Aggravated;
         target = attacker;

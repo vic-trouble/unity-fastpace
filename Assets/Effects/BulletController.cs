@@ -12,6 +12,7 @@ public class BulletController : MonoBehaviour
     public float SPEED = 250;
     public float MIN_SPEED = 3;
     public int CRITICAL_MULTIPLIER = 5;
+    public float AGGRAVATION_RADIUS = 3;
 
     private int shotThru = 0;
     private int MAX_SHOT_THRU = 2;
@@ -50,6 +51,8 @@ public class BulletController : MonoBehaviour
                 var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
                 effectsController.SpawnSplatterEffect(transform.position, material != Material.None ? material : Material.Dirt);
             }
+
+            AggravateMobs(transform.position);
 
             Destroy(gameObject);
         }
@@ -137,6 +140,8 @@ public class BulletController : MonoBehaviour
 
     private bool Penetrate(Material material, Vector2 enterPoint, Vector2 exitPoint)
     {
+        AggravateMobs((enterPoint + exitPoint) / 2);
+
         float energyStopFactor;
         bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
         this.damage *= energyStopFactor;
@@ -170,8 +175,6 @@ public class BulletController : MonoBehaviour
         else {
             effectsController.SpawnSplatterEffect(transform.position, Material.Meat);
         }
-
-        Destroy(gameObject);
     }
 
     void HitObject(DestructibleObject destructibleObject, Vector2 enterPoint, Vector2 exitPoint)
@@ -189,20 +192,28 @@ public class BulletController : MonoBehaviour
     {
         Debug.Log("bullet collision on " + collision.gameObject.name);
 
+        AggravateMobs(transform.position);
+
         UnitController unit = collision.gameObject.GetComponent<UnitController>();
         if (unit && unit != attacker) {
             HitUnit(unit, collision.collider.tag == "Critical");
+            Destroy(gameObject);
         }
 
         var dynamitePack = collision.gameObject.GetComponent<DynamitePackController>();
         if (dynamitePack) {
             dynamitePack.DealDamage();
+            Destroy(gameObject);
         }
-        /*
-        var destructibleObject = collision.gameObject.GetComponent<DestructibleObject>();
-        if (destructibleObject) {
-            HitObject(destructibleObject);
+    }
+
+    void AggravateMobs(Vector2 point)
+    {
+        foreach (var mob in FindObjectsOfType<BadGuyController>()) {
+            float distance = ((Vector2)mob.transform.position - point).magnitude;
+            if (distance < AGGRAVATION_RADIUS) {
+                mob.Aggravate(attacker, true);
+            }
         }
-        */
     }
 }
