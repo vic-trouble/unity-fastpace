@@ -209,10 +209,12 @@ public class BulletController : MonoBehaviour
 
     void AggravateMobs(Vector2 point)
     {
-        foreach (var mob in FindObjectsOfType<BadGuyController>()) {
-            float distance = ((Vector2)mob.transform.position - point).magnitude;
-            if (distance < AGGRAVATION_RADIUS) {
-                mob.Aggravate(attacker, true);
+        if (attacker && attacker.name == "Shooter") {
+            foreach (var mob in FindObjectsOfType<BadGuyController>()) {
+                float distance = ((Vector2)mob.transform.position - point).magnitude;
+                if (distance < AGGRAVATION_RADIUS) {
+                    mob.Aggravate(attacker, true);
+                }
             }
         }
     }
