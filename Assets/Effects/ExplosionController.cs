@@ -71,12 +71,6 @@ public class ExplosionController : MonoBehaviour
         camera.ShakeScreen(SCREEN_SHAKE_TIME, SCREEN_SHAKE_MAGNITUDE);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnAnimationEnd()
     {
         Destroy(gameObject);

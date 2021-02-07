@@ -23,6 +23,11 @@ public class BadGuyController : UnitController
     private BadGuyState state = BadGuyState.Idle;
     private UnitController target;
 
+    public AudioClip sfxPistolShot;
+    public AudioClip sfxAggravated;
+    public AudioClip sfxHurt;
+    public AudioClip sfxDied;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,9 +92,12 @@ public class BadGuyController : UnitController
     {
         if (state == BadGuyState.Dead)
             return;
-            
-        if (state == BadGuyState.Idle)
+
+        if (state == BadGuyState.Idle) {
             state = BadGuyState.Aggravated;
+            PlaySFX(sfxAggravated);
+        }
+
         target = attacker;
 
         if (aggravateInArea) {
@@ -106,6 +114,8 @@ public class BadGuyController : UnitController
     protected override void OnHit(UnitController attacker)
     {
         Aggravate(attacker, true);
+        
+        PlaySFX(sfxHurt);
     }
 
     protected override void OnDie()
@@ -113,5 +123,21 @@ public class BadGuyController : UnitController
         state = BadGuyState.Dead;
         var renderer = GetComponent<SpriteRenderer>();
         renderer.sortingLayerName = "DeadBodies";
+
+        PlaySFX(sfxDied);
+    }
+
+    protected override void OnShoot()
+    {
+        PlaySFX(sfxPistolShot);
+    }
+
+    private void PlaySFX(AudioClip sfx)
+    {
+        if (sfx) {
+            var audio = GetComponent<AudioSource>();
+            audio.clip = sfx;
+            audio.Play();
+        }
     }
 }

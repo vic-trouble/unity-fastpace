@@ -13,6 +13,7 @@ public class DestructibleObject : MonoBehaviour
 {
     public List<DestructibleObjectPhase> destructionPhases;
     public GameObject destructionEffect;
+    public AudioClip sfx;
 
     private float curDamage = 0;
 
@@ -43,6 +44,8 @@ public class DestructibleObject : MonoBehaviour
                 var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
                 effectsController.Spawn(destructionEffect, transform.position);
             }
+
+            PlaySFX(sfx);
         }
 
     }
@@ -50,5 +53,14 @@ public class DestructibleObject : MonoBehaviour
     private bool SameSprite(Sprite spriteA, Sprite spriteB)
     {
         return spriteA.name == spriteB.name;
+    }
+
+    private void PlaySFX(AudioClip sfx)
+    {
+        if (sfx) {
+            var audio = GetComponent<AudioSource>();
+            audio.clip = sfx;
+            audio.Play();
+        }
     }
 }

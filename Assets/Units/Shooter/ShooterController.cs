@@ -20,6 +20,11 @@ public class ShooterController : UnitController
 
     public int ammoGrenades = 0;
 
+    public AudioClip sfxPistolShot;
+    public AudioClip sfxPistolReload;
+    public AudioClip sfxHurt;
+    public AudioClip sfxDied;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,14 +37,21 @@ public class ShooterController : UnitController
     {
         isDead = true;
 
+        var healthBar = GameObject.Find("HealthBar").GetComponent<HealthBarController>();
+        healthBar.SetHealthPortion(0);
+
         var renderer = GetComponent<SpriteRenderer>();
         renderer.sortingLayerName = "DeadBodies";
+
+        PlaySFX(sfxDied);
     }
 
     protected override void OnHit(UnitController attacker)
     {
         var healthBar = GameObject.Find("HealthBar").GetComponent<HealthBarController>();
         healthBar.SetHealthPortion(health / HEALTH);
+
+        PlaySFX(sfxHurt);
     }
 
     private void UpdateHUDAmmo()
@@ -51,6 +63,7 @@ public class ShooterController : UnitController
     protected override void OnShoot()
     {
         UpdateHUDAmmo();
+        PlaySFX(sfxPistolShot);
     }
 
     private void UpdateHUDGrenades()
@@ -64,6 +77,7 @@ public class ShooterController : UnitController
         // no animation yet
         if (nextReloadTime == 0) {
             nextReloadTime = Time.fixedTime + RELOAD_SPEED;
+            PlaySFX(sfxPistolReload);
         }
     }
 
@@ -150,5 +164,14 @@ public class ShooterController : UnitController
     {
         ammoGrenades += numGrenades;
         UpdateHUDGrenades();
+    }
+
+    private void PlaySFX(AudioClip sfx)
+    {
+        if (sfx) {
+            var audio = GetComponent<AudioSource>();
+            audio.clip = sfx;
+            audio.Play();
+        }
     }
 }

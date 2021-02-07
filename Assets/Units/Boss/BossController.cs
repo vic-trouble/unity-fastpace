@@ -20,6 +20,10 @@ public class BossController : UnitController
 
     public float AGGRAVATION_RADIUS = 3;
 
+    public AudioClip sfxAggravate;
+    public AudioClip sfxDied;
+    public AudioClip sfxShoot;
+
     private BossState state = BossState.Idle;
     private UnitController target;
 
@@ -85,9 +89,11 @@ public class BossController : UnitController
 
     public void Aggravate(UnitController attacker)
     {
-        if (state == BossState.Idle)
+        if (state == BossState.Idle) {
             state = BossState.Aggravated;
-        target = attacker;
+            target = attacker;
+            PlaySFX(sfxAggravate);
+        }
     }
 
     protected override void OnHit(UnitController attacker)
@@ -97,6 +103,8 @@ public class BossController : UnitController
         var healthBar = GameObject.Find("HUD").GetComponent<HUDController>().bossHealthBar.GetComponent<BossHealthBarController>();
         healthBar.Show();
         healthBar.SetHealthPortion(health / HEALTH);
+
+        //PlaySFX(sfx)
     }
 
     protected override void OnDie()
@@ -107,5 +115,26 @@ public class BossController : UnitController
 
         var healthBar = GameObject.Find("HUD").GetComponent<HUDController>().bossHealthBar.GetComponent<BossHealthBarController>();
         healthBar.Hide();
+
+        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+        for (int i = 0; i < 25; i++) {
+            effectsController.SpawnSplatterEffect(transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), Material.Meat);
+        }
+
+        PlaySFX(sfxDied);
+    }
+
+    protected override void OnShoot()
+    {
+        PlaySFX(sfxShoot);
+    }
+
+    private void PlaySFX(AudioClip sfx)
+    {
+        if (sfx) {
+            var audio = GetComponent<AudioSource>();
+            audio.clip = sfx;
+            audio.Play();
+        }
     }
 }

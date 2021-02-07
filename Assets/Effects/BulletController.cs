@@ -17,6 +17,8 @@ public class BulletController : MonoBehaviour
     private int shotThru = 0;
     private int MAX_SHOT_THRU = 2;
 
+    private MaterialsController materialDetector;
+
     public void Init(Vector2 start, Vector2 end, UnitController attacker, float damage)
     {
         this.start = start;
@@ -30,6 +32,8 @@ public class BulletController : MonoBehaviour
         var body = GetComponent<Rigidbody2D>();
         body.AddForce((end - start).normalized * SPEED, ForceMode2D.Impulse);
         transform.eulerAngles = new Vector3(0, 0, Vector3.SignedAngle(new Vector3(1, 0, 0), end - start, new Vector3(0, 0, 1)));
+
+        materialDetector = FindObjectOfType<MaterialsController>();
     }
 
     void FixedUpdate()
@@ -47,9 +51,12 @@ public class BulletController : MonoBehaviour
             var sprite = tileMap.GetSprite(tileMap.WorldToCell(transform.position));
             if (sprite) {
                 string texture = sprite.texture.name;
-                Material material = MaterialDetector.GuessMaterialFromTexture(texture);
+                Material material = materialDetector.GuessMaterialFromTexture(texture);
+                if (material == Material.None)
+                    material = Material.Dirt;
+
                 var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-                effectsController.SpawnSplatterEffect(transform.position, material != Material.None ? material : Material.Dirt);
+                effectsController.SpawnSplatterEffect(transform.position, material);
             }
 
             AggravateMobs(transform.position);
@@ -62,7 +69,7 @@ public class BulletController : MonoBehaviour
     {
         Vector2 direction = (end - start).normalized;
         Vector2 probePoint = (enterPoint + exitPoint) / 2;
-        Material material = MaterialDetector.GuessMaterial(wall, probePoint);
+        Material material = materialDetector.GuessMaterial(wall, probePoint);
         Debug.Log("hit material " + material);
 
         // find effect position
@@ -149,7 +156,7 @@ public class BulletController : MonoBehaviour
         AggravateMobs((enterPoint + exitPoint) / 2);
 
         float energyStopFactor;
-        bool stopBullet = !MaterialDetector.IsPenetrableByBullet(material, out energyStopFactor);
+        bool stopBullet = !materialDetector.IsPenetrableByBullet(material, out energyStopFactor);
         this.damage *= energyStopFactor;
         if (!stopBullet) {
             stopBullet = ++shotThru >= MAX_SHOT_THRU;
@@ -188,7 +195,7 @@ public class BulletController : MonoBehaviour
         destructibleObject.DealDamage(damage);
 
         Vector2 probePoint = (enterPoint + exitPoint) / 2;
-        Material material = MaterialDetector.GuessMaterial(destructibleObject.gameObject, probePoint);
+        Material material = materialDetector.GuessMaterial(destructibleObject.gameObject, probePoint);
         Debug.Log("hit material " + material);
 
         Penetrate(material, enterPoint, exitPoint);
