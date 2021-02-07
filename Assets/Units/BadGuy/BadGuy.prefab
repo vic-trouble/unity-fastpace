@@ -174,6 +174,7 @@ MonoBehaviour:
   ACCURACY: 0.5
   SHOT_SPEED: 1
   SHOT_POWER: 1
+  AGGRAVATION_RADIUS: 3
 --- !u!70 &4605176155105131653
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -209,7 +210,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!1 &3205605929457693863
 GameObject:

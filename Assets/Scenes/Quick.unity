@@ -58159,6 +58159,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7930558818156187890, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.42064244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930558818156187890, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.20810378
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930558818156187890, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930558818156187890, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.020508276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930558818156187890, guid: a3301d8d245b8e3488c6ae6390ea63c2,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.13602357
+      objectReference: {fileID: 0}
     - target: {fileID: 8116044793240305798, guid: a3301d8d245b8e3488c6ae6390ea63c2,
         type: 3}
       propertyPath: ACCURACY

@@ -173,7 +173,9 @@ MonoBehaviour:
   SHOT_POWER: 3
   ACCURACY: 0.9
   RELOAD_SPEED: 0.5
+  dynamite: {fileID: 0}
   THROW_GRENADE_COOLDOWN: 1
+  ammoGrenades: 0
 --- !u!70 &7930558818156187890
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,8 +189,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.019311743, y: 0.12614617}
-  m_Size: {x: 0.37039563, y: 0.13477497}
+  m_Offset: {x: -0.020508276, y: 0.12734197}
+  m_Size: {x: 0.42064232, y: 0.16588022}
   m_Direction: 1
 --- !u!50 &6899855592131615557
 Rigidbody2D:
@@ -209,5 +211,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
