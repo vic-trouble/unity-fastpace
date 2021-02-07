@@ -83,26 +83,16 @@ public class BossController : UnitController
         PlayAnimatinon(GetAnimPrefix(direction) + animation, forceAnimation);
     }
 
-    public void Aggravate(UnitController attacker, bool aggravateInArea)
+    public void Aggravate(UnitController attacker)
     {
         if (state == BossState.Idle)
             state = BossState.Aggravated;
         target = attacker;
-
-        if (aggravateInArea) {
-            var badGuys = FindObjectsOfType<BadGuyController>();
-            foreach (var badGuy in badGuys) {
-                float distance = (badGuy.transform.position - transform.position).magnitude;
-                if (badGuy != this && badGuy.health > 0 && distance < AGGRAVATION_RADIUS) {
-                    badGuy.Aggravate(attacker, false);
-                }
-            }
-        }
     }
 
     protected override void OnHit(UnitController attacker)
     {
-        Aggravate(attacker, true);
+        Aggravate(attacker);
 
         var healthBar = GameObject.Find("HUD").GetComponent<HUDController>().bossHealthBar.GetComponent<BossHealthBarController>();
         healthBar.Show();

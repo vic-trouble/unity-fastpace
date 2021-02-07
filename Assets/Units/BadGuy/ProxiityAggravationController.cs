@@ -21,7 +21,15 @@ public class ProxiityAggravationController : MonoBehaviour
         var shooter = collider.gameObject.GetComponent<ShooterController>();
         if (shooter) {
             var badGuy = transform.parent.gameObject.GetComponent<BadGuyController>();
-            badGuy.Aggravate(shooter, true);
+            if (badGuy) {
+                badGuy.Aggravate(shooter, true);
+            }
+            else {
+                var boss = transform.parent.gameObject.GetComponent<BossController>();
+                if (boss) {
+                    boss.Aggravate(shooter);
+                }
+            }
         }
     }
 }
