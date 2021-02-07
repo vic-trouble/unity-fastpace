@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4d402689ae33a49be8e97b1211af0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BLAST_RADIUS: 2
+  BLAST_RADIUS: 4
   BLAST_POWER: 50
   SCREEN_SHAKE_TIME: 0.25
   SCREEN_SHAKE_MAGNITUDE: 0.25

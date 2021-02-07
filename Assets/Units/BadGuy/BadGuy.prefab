@@ -168,11 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a724266f0206c25a4b5cf7f6fbae2fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SPEED: 1
+  SPEED: 1.5
   HEALTH: 10
   AMMO: 6
-  SHOOTING_RANGE: 3
-  ACCURACY: 0.5
+  SHOOTING_RANGE: 5
+  ACCURACY: 0.8
   SHOT_SPEED: 1
   SHOT_POWER: 1
   AGGRAVATION_RADIUS: 3
