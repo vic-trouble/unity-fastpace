@@ -111,12 +111,31 @@ public class UnitController: MonoBehaviour
 
     protected void Shoot(Vector3 targetPosition, float damage)
     {
-        // spawn bullet
-        var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
-        effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition, this, damage);
+        // fix to not shoot through walls
+        bool okToShoot = true;
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = false;
+        int hitsCount = Physics2D.Raycast((Vector2)transform.position, Vector2.up, filter, hits, 0.75f);
 
-        ammo--;
-        OnShoot();
+        if (hitsCount > 0) {
+            foreach (var hit in hits) {
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject.tag == "wall" || hitObject.tag == "SideWall") {
+                    okToShoot = false;
+                    break;
+                }
+            }
+        }
+
+        if (okToShoot) {
+            // spawn bullet
+            var effectsController = GameObject.Find("+Effects").GetComponent<EffectsController>();
+            effectsController.SpawnBulletTrailEffect((Vector2)transform.position + Vector2.up / 2, targetPosition, this, damage);
+
+            ammo--;
+            OnShoot();
+        }
     }
 
     protected virtual void OnHit(UnitController attacker)
