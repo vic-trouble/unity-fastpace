@@ -24,6 +24,7 @@ public class ShooterController : UnitController
     public AudioClip sfxPistolReload;
     public AudioClip sfxHurt;
     public AudioClip sfxDied;
+    public AudioClip sfxPowerUp;
 
     // Start is called before the first frame update
     void Start()
@@ -164,6 +165,8 @@ public class ShooterController : UnitController
     {
         ammoGrenades += numGrenades;
         UpdateHUDGrenades();
+
+        PlaySFX(sfxPowerUp);
     }
 
     private void PlaySFX(AudioClip sfx)

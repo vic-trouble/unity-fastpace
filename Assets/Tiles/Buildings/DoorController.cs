@@ -5,6 +5,12 @@ using UnityEngine.Tilemaps;
 
 public class DoorController : MonoBehaviour
 {
+
+    public AudioClip sfxOpen;
+
+/*
+    public AudioClip sfxClose;
+
     private enum State
     {
         Close,
@@ -13,7 +19,7 @@ public class DoorController : MonoBehaviour
     }
 
     private State state = State.Close;
-
+*/
     private bool open = false;
 
     private float disableColliderTime = 0;
@@ -38,7 +44,18 @@ public class DoorController : MonoBehaviour
                 var walls = GameObject.Find("Map/Buildings/Walls").GetComponent<Tilemap>();
                 Vector3Int tilePosition = walls.WorldToCell(transform.position);
                 effectsController.RemoveBulletHoles((Vector2Int)tilePosition);
+
+                PlaySFX(sfxOpen);
             }
+        }
+    }
+
+    private void PlaySFX(AudioClip sfx)
+    {
+        if (sfx) {
+            var audio = GetComponent<AudioSource>();
+            audio.clip = sfx;
+            audio.Play();
         }
     }
 }
